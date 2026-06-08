@@ -264,13 +264,78 @@ const GROUPS={
 };
 
 const TOP_SCORERS=[
-  'Kylian Mbappé (France)','Erling Haaland (Norway)','Vinicius Jr (Brazil)',
-  'Harry Kane (England)','Cristiano Ronaldo (Portugal)','Lionel Messi (Argentina)',
-  'Lamine Yamal (Spain)','Jude Bellingham (England)','Pedri (Spain)',
-  'Bukayo Saka (England)','Rodri (Spain)','Phil Foden (England)',
-  'Julian Alvarez (Argentina)','Romelu Lukaku (Belgium)','Cody Gakpo (Netherlands)',
-  'Jamal Musiala (Germany)','Florian Wirtz (Germany)','Kai Havertz (Germany)',
-  'Richarlison (Brazil)','Neymar (Brazil)','Other'
+  // FRANCE
+  'Kylian Mbappé (France)','Ousmane Dembélé (France)','Marcus Thuram (France)',
+  // NORWAY
+  'Erling Haaland (Norway)','Alexander Sørloth (Norway)',
+  // BRAZIL
+  'Vinicius Jr (Brazil)','Richarlison (Brazil)','Rodrygo (Brazil)','Gabriel Martinelli (Brazil)','Lucas Paquetá (Brazil)',
+  // ENGLAND
+  'Harry Kane (England)','Bukayo Saka (England)','Phil Foden (England)','Cole Palmer (England)','Anthony Gordon (England)',
+  // PORTUGAL
+  'Cristiano Ronaldo (Portugal)','Rafael Leão (Portugal)','Pedro Neto (Portugal)','Diogo Jota (Portugal)',
+  // ARGENTINA
+  'Lionel Messi (Argentina)','Lautaro Martínez (Argentina)','Julián Álvarez (Argentina)','Nicolás González (Argentina)',
+  // SPAIN
+  'Lamine Yamal (Spain)','Nico Williams (Spain)','Álvaro Morata (Spain)','Ferran Torres (Spain)',
+  // GERMANY
+  'Jamal Musiala (Germany)','Florian Wirtz (Germany)','Kai Havertz (Germany)','Leroy Sané (Germany)','Serge Gnabry (Germany)',
+  // NETHERLANDS
+  'Cody Gakpo (Netherlands)','Memphis Depay (Netherlands)','Donyell Malen (Netherlands)','Wout Weghorst (Netherlands)',
+  // BELGIUM
+  'Romelu Lukaku (Belgium)','Lois Openda (Belgium)','Leandro Trossard (Belgium)',
+  // SWEDEN
+  'Viktor Gyökeres (Sweden)','Alexander Isak (Sweden)','Dejan Kulusevski (Sweden)',
+  // COLOMBIA
+  'Luis Díaz (Colombia)','Jhon Duran (Colombia)','Radamel Falcao (Colombia)',
+  // MOROCCO
+  'Youssef En-Nesyri (Morocco)','Soufiane Rahimi (Morocco)','Hakim Ziyech (Morocco)',
+  // MEXICO
+  'Santiago Giménez (Mexico)','Raúl Jiménez (Mexico)','Julián Quiñones (Mexico)',
+  // USA
+  'Christian Pulisic (USA)','Folarin Balogun (USA)','Tim Weah (USA)',
+  // SENEGAL
+  'Sadio Mané (Senegal)','Nicolas Jackson (Senegal)',
+  // URUGUAY
+  'Darwin Núñez (Uruguay)','Facundo Pellistri (Uruguay)',
+  // JAPAN
+  'Kaoru Mitoma (Japan)','Ritsu Doan (Japan)','Ayase Ueda (Japan)',
+  // ECUADOR
+  'Enner Valencia (Ecuador)','Kevin Rodríguez (Ecuador)',
+  // CROATIA
+  'Andrej Kramarić (Croatia)','Bruno Petković (Croatia)',
+  // SOUTH KOREA
+  'Son Heung-Min (South Korea)','Cho Gue-sung (South Korea)',
+  // AUSTRALIA
+  'Mathew Leckie (Australia)','Nestory Irankunda (Australia)',
+  // GHANA
+  'Jordan Ayew (Ghana)','Antoine Semenyo (Ghana)',
+  // IRAN
+  'Mehdi Taremi (Iran)',
+  // EGYPT
+  'Omar Marmoush (Egypt)','Mostafa Mohamed (Egypt)',
+  // ALGERIA
+  'Riyad Mahrez (Algeria)','Amine Gouiri (Algeria)','Mohamed Amine Amoura (Algeria)',
+  // AUSTRIA
+  'Marcel Sabitzer (Austria)','Michael Gregoritsch (Austria)',
+  // CANADA
+  'Jonathan David (Canada)','Cyle Larin (Canada)','Tajon Buchanan (Canada)',
+  // SCOTLAND
+  'Che Adams (Scotland)','Lyndon Dykes (Scotland)',
+  // TURKEY
+  'Arda Güler (Turkey)','Kerem Aktürkoğlu (Turkey)','Baris Alper Yilmaz (Turkey)',
+  // IVORY COAST
+  'Sébastien Haller (Ivory Coast)','Nicolas Pépé (Ivory Coast)',
+  // PORTUGAL
+  'Gonçalo Ramos (Portugal)',
+  // PANAMA
+  'Ismael Díaz (Panama)',
+  // DR CONGO
+  'Cédric Bakambu (DR Congo)','Silas (DR Congo)',
+  // HAITI
+  'Frantzdy Pierrot (Haiti)',
+  // OTHER
+  'Other'
 ];
 
 // ── Match data ───────────────────────────────────────────
@@ -353,39 +418,46 @@ function makeGroupMatches(){
 }
 
 function makeKnockoutMatches(){
+  // Confirmed dates/times (ET→UTC +4h) and venues from worldcupwiki.com
   return [
-    {id:73,stage:'Round of 32',label:'R32-M73',h:'TBD',a:'TBD',dt:'2026-06-28T19:00:00Z',venue:'SoFi Stadium, Los Angeles',type:'knockout',result:null,homeScore:null,awayScore:null},
-    {id:74,stage:'Round of 32',label:'R32-M74',h:'TBD',a:'TBD',dt:'2026-06-29T20:30:00Z',venue:'Gillette Stadium, Boston',type:'knockout',result:null,homeScore:null,awayScore:null},
-    {id:75,stage:'Round of 32',label:'R32-M75',h:'TBD',a:'TBD',dt:'2026-06-30T01:00:00Z',venue:'Estadio BBVA, Monterrey',type:'knockout',result:null,homeScore:null,awayScore:null},
-    {id:76,stage:'Round of 32',label:'R32-M76',h:'TBD',a:'TBD',dt:'2026-06-29T17:00:00Z',venue:'NRG Stadium, Houston',type:'knockout',result:null,homeScore:null,awayScore:null},
-    {id:77,stage:'Round of 32',label:'R32-M77',h:'TBD',a:'TBD',dt:'2026-06-30T21:00:00Z',venue:'MetLife Stadium, New Jersey',type:'knockout',result:null,homeScore:null,awayScore:null},
-    {id:78,stage:'Round of 32',label:'R32-M78',h:'TBD',a:'TBD',dt:'2026-06-30T17:00:00Z',venue:'AT&T Stadium, Dallas',type:'knockout',result:null,homeScore:null,awayScore:null},
-    {id:79,stage:'Round of 32',label:'R32-M79',h:'TBD',a:'TBD',dt:'2026-07-01T01:00:00Z',venue:'Estadio Azteca, Mexico City',type:'knockout',result:null,homeScore:null,awayScore:null},
-    {id:80,stage:'Round of 32',label:'R32-M80',h:'TBD',a:'TBD',dt:'2026-07-01T16:00:00Z',venue:'Mercedes-Benz Stadium, Atlanta',type:'knockout',result:null,homeScore:null,awayScore:null},
-    {id:81,stage:'Round of 32',label:'R32-M81',h:'TBD',a:'TBD',dt:'2026-07-02T00:00:00Z',venue:'Levi\'s Stadium, San Francisco',type:'knockout',result:null,homeScore:null,awayScore:null},
-    {id:82,stage:'Round of 32',label:'R32-M82',h:'TBD',a:'TBD',dt:'2026-07-01T20:00:00Z',venue:'Lumen Field, Seattle',type:'knockout',result:null,homeScore:null,awayScore:null},
-    {id:83,stage:'Round of 32',label:'R32-M83',h:'TBD',a:'TBD',dt:'2026-07-02T23:00:00Z',venue:'BMO Field, Toronto',type:'knockout',result:null,homeScore:null,awayScore:null},
-    {id:84,stage:'Round of 32',label:'R32-M84',h:'TBD',a:'TBD',dt:'2026-07-02T19:00:00Z',venue:'SoFi Stadium, Los Angeles',type:'knockout',result:null,homeScore:null,awayScore:null},
-    {id:85,stage:'Round of 32',label:'R32-M85',h:'TBD',a:'TBD',dt:'2026-07-03T03:00:00Z',venue:'BC Place, Vancouver',type:'knockout',result:null,homeScore:null,awayScore:null},
-    {id:86,stage:'Round of 32',label:'R32-M86',h:'TBD',a:'TBD',dt:'2026-07-03T22:00:00Z',venue:'Hard Rock Stadium, Miami',type:'knockout',result:null,homeScore:null,awayScore:null},
-    {id:87,stage:'Round of 32',label:'R32-M87',h:'TBD',a:'TBD',dt:'2026-07-04T01:30:00Z',venue:'Arrowhead Stadium, Kansas City',type:'knockout',result:null,homeScore:null,awayScore:null},
-    {id:88,stage:'Round of 32',label:'R32-M88',h:'TBD',a:'TBD',dt:'2026-07-03T18:00:00Z',venue:'AT&T Stadium, Dallas',type:'knockout',result:null,homeScore:null,awayScore:null},
-    {id:89,stage:'Round of 16',label:'R16-M89',h:'TBD',a:'TBD',dt:'2026-07-04T21:00:00Z',venue:'Lincoln Financial Field, Philadelphia',type:'knockout',result:null,homeScore:null,awayScore:null},
-    {id:90,stage:'Round of 16',label:'R16-M90',h:'TBD',a:'TBD',dt:'2026-07-04T17:00:00Z',venue:'NRG Stadium, Houston',type:'knockout',result:null,homeScore:null,awayScore:null},
-    {id:91,stage:'Round of 16',label:'R16-M91',h:'TBD',a:'TBD',dt:'2026-07-05T20:00:00Z',venue:'MetLife Stadium, New Jersey',type:'knockout',result:null,homeScore:null,awayScore:null},
-    {id:92,stage:'Round of 16',label:'R16-M92',h:'TBD',a:'TBD',dt:'2026-07-06T00:00:00Z',venue:'Estadio Azteca, Mexico City',type:'knockout',result:null,homeScore:null,awayScore:null},
-    {id:93,stage:'Round of 16',label:'R16-M93',h:'TBD',a:'TBD',dt:'2026-07-06T19:00:00Z',venue:'AT&T Stadium, Dallas',type:'knockout',result:null,homeScore:null,awayScore:null},
-    {id:94,stage:'Round of 16',label:'R16-M94',h:'TBD',a:'TBD',dt:'2026-07-07T00:00:00Z',venue:'Lumen Field, Seattle',type:'knockout',result:null,homeScore:null,awayScore:null},
-    {id:95,stage:'Round of 16',label:'R16-M95',h:'TBD',a:'TBD',dt:'2026-07-07T16:00:00Z',venue:'Mercedes-Benz Stadium, Atlanta',type:'knockout',result:null,homeScore:null,awayScore:null},
-    {id:96,stage:'Round of 16',label:'R16-M96',h:'TBD',a:'TBD',dt:'2026-07-07T20:00:00Z',venue:'BC Place, Vancouver',type:'knockout',result:null,homeScore:null,awayScore:null},
-    {id:97,stage:'Quarter-Final',label:'QF-M97',h:'TBD',a:'TBD',dt:'2026-07-09T20:00:00Z',venue:'Gillette Stadium, Boston',type:'knockout',result:null,homeScore:null,awayScore:null},
-    {id:98,stage:'Quarter-Final',label:'QF-M98',h:'TBD',a:'TBD',dt:'2026-07-10T19:00:00Z',venue:'SoFi Stadium, Los Angeles',type:'knockout',result:null,homeScore:null,awayScore:null},
-    {id:99,stage:'Quarter-Final',label:'QF-M99',h:'TBD',a:'TBD',dt:'2026-07-11T21:00:00Z',venue:'Hard Rock Stadium, Miami',type:'knockout',result:null,homeScore:null,awayScore:null},
-    {id:100,stage:'Quarter-Final',label:'QF-M100',h:'TBD',a:'TBD',dt:'2026-07-12T19:00:00Z',venue:'AT&T Stadium, Dallas',type:'knockout',result:null,homeScore:null,awayScore:null},
-    {id:101,stage:'Semi-Final',label:'SF-M101',h:'TBD',a:'TBD',dt:'2026-07-14T00:00:00Z',venue:'MetLife Stadium, New Jersey',type:'knockout',result:null,homeScore:null,awayScore:null},
-    {id:102,stage:'Semi-Final',label:'SF-M102',h:'TBD',a:'TBD',dt:'2026-07-16T00:00:00Z',venue:'AT&T Stadium, Dallas',type:'knockout',result:null,homeScore:null,awayScore:null},
-    {id:103,stage:'3rd Place',label:'3rd Place',h:'TBD',a:'TBD',dt:'2026-07-18T19:00:00Z',venue:'Hard Rock Stadium, Miami',type:'knockout',result:null,homeScore:null,awayScore:null},
-    {id:104,stage:'Final',label:'FINAL',h:'TBD',a:'TBD',dt:'2026-07-19T19:00:00Z',venue:'MetLife Stadium, New Jersey',type:'knockout',result:null,homeScore:null,awayScore:null},
+    // ROUND OF 32 — Jun 28 to Jul 3
+    {id:73,stage:'Round of 32',label:'M73: Runner-up A vs Runner-up B',h:'TBD',a:'TBD',dt:'2026-06-28T19:00:00Z',venue:'SoFi Stadium, Inglewood',type:'knockout',result:null,homeScore:null,awayScore:null},
+    {id:74,stage:'Round of 32',label:'M74: Winner E vs Best 3rd (A/B/C/D/F)',h:'TBD',a:'TBD',dt:'2026-06-29T20:30:00Z',venue:'Gillette Stadium, Foxborough',type:'knockout',result:null,homeScore:null,awayScore:null},
+    {id:75,stage:'Round of 32',label:'M75: Winner F vs Runner-up C',h:'TBD',a:'TBD',dt:'2026-06-30T01:00:00Z',venue:'Estadio BBVA, Monterrey',type:'knockout',result:null,homeScore:null,awayScore:null},
+    {id:76,stage:'Round of 32',label:'M76: Winner C vs Runner-up F',h:'TBD',a:'TBD',dt:'2026-06-29T17:00:00Z',venue:'NRG Stadium, Houston',type:'knockout',result:null,homeScore:null,awayScore:null},
+    {id:77,stage:'Round of 32',label:'M77: Winner I vs Best 3rd (C/D/F/G/H)',h:'TBD',a:'TBD',dt:'2026-06-30T21:00:00Z',venue:'MetLife Stadium, New Jersey',type:'knockout',result:null,homeScore:null,awayScore:null},
+    {id:78,stage:'Round of 32',label:'M78: Runner-up E vs Runner-up I',h:'TBD',a:'TBD',dt:'2026-06-30T17:00:00Z',venue:'AT&T Stadium, Arlington',type:'knockout',result:null,homeScore:null,awayScore:null},
+    {id:79,stage:'Round of 32',label:'M79: Winner A vs Best 3rd (C/E/F/H/I)',h:'TBD',a:'TBD',dt:'2026-07-01T01:00:00Z',venue:'Estadio Azteca, Mexico City',type:'knockout',result:null,homeScore:null,awayScore:null},
+    {id:80,stage:'Round of 32',label:'M80: Winner L vs Best 3rd (E/H/I/J/K)',h:'TBD',a:'TBD',dt:'2026-07-01T16:00:00Z',venue:'Mercedes-Benz Stadium, Atlanta',type:'knockout',result:null,homeScore:null,awayScore:null},
+    {id:81,stage:'Round of 32',label:'M81: Winner D vs Best 3rd (B/E/F/I/J)',h:'TBD',a:'TBD',dt:'2026-07-02T00:00:00Z',venue:"Levi's Stadium, Santa Clara",type:'knockout',result:null,homeScore:null,awayScore:null},
+    {id:82,stage:'Round of 32',label:'M82: Winner G vs Best 3rd (A/E/H/I/J)',h:'TBD',a:'TBD',dt:'2026-07-01T20:00:00Z',venue:'Lumen Field, Seattle',type:'knockout',result:null,homeScore:null,awayScore:null},
+    {id:83,stage:'Round of 32',label:'M83: Runner-up K vs Runner-up L',h:'TBD',a:'TBD',dt:'2026-07-02T23:00:00Z',venue:'BMO Field, Toronto',type:'knockout',result:null,homeScore:null,awayScore:null},
+    {id:84,stage:'Round of 32',label:'M84: Winner H vs Runner-up J',h:'TBD',a:'TBD',dt:'2026-07-02T19:00:00Z',venue:'SoFi Stadium, Inglewood',type:'knockout',result:null,homeScore:null,awayScore:null},
+    {id:85,stage:'Round of 32',label:'M85: Winner B vs Best 3rd (E/F/G/I/J)',h:'TBD',a:'TBD',dt:'2026-07-03T03:00:00Z',venue:'BC Place, Vancouver',type:'knockout',result:null,homeScore:null,awayScore:null},
+    {id:86,stage:'Round of 32',label:'M86: Winner J vs Runner-up H',h:'TBD',a:'TBD',dt:'2026-07-03T22:00:00Z',venue:'Hard Rock Stadium, Miami Gardens',type:'knockout',result:null,homeScore:null,awayScore:null},
+    {id:87,stage:'Round of 32',label:'M87: Winner K vs Best 3rd (D/E/I/J/L)',h:'TBD',a:'TBD',dt:'2026-07-04T01:30:00Z',venue:'Arrowhead Stadium, Kansas City',type:'knockout',result:null,homeScore:null,awayScore:null},
+    {id:88,stage:'Round of 32',label:'M88: Runner-up D vs Runner-up G',h:'TBD',a:'TBD',dt:'2026-07-03T18:00:00Z',venue:'AT&T Stadium, Arlington',type:'knockout',result:null,homeScore:null,awayScore:null},
+    // ROUND OF 16 — Jul 4 to Jul 7
+    {id:89,stage:'Round of 16',label:'M89: Winner M74 vs Winner M77',h:'TBD',a:'TBD',dt:'2026-07-04T21:00:00Z',venue:'Lincoln Financial Field, Philadelphia',type:'knockout',result:null,homeScore:null,awayScore:null},
+    {id:90,stage:'Round of 16',label:'M90: Winner M73 vs Winner M75',h:'TBD',a:'TBD',dt:'2026-07-04T17:00:00Z',venue:'NRG Stadium, Houston',type:'knockout',result:null,homeScore:null,awayScore:null},
+    {id:91,stage:'Round of 16',label:'M91: Winner M76 vs Winner M78',h:'TBD',a:'TBD',dt:'2026-07-05T20:00:00Z',venue:'MetLife Stadium, New Jersey',type:'knockout',result:null,homeScore:null,awayScore:null},
+    {id:92,stage:'Round of 16',label:'M92: Winner M79 vs Winner M80',h:'TBD',a:'TBD',dt:'2026-07-06T00:00:00Z',venue:'Estadio Azteca, Mexico City',type:'knockout',result:null,homeScore:null,awayScore:null},
+    {id:93,stage:'Round of 16',label:'M93: Winner M83 vs Winner M84',h:'TBD',a:'TBD',dt:'2026-07-06T19:00:00Z',venue:'AT&T Stadium, Arlington',type:'knockout',result:null,homeScore:null,awayScore:null},
+    {id:94,stage:'Round of 16',label:'M94: Winner M81 vs Winner M82',h:'TBD',a:'TBD',dt:'2026-07-07T00:00:00Z',venue:'Lumen Field, Seattle',type:'knockout',result:null,homeScore:null,awayScore:null},
+    {id:95,stage:'Round of 16',label:'M95: Winner M86 vs Winner M88',h:'TBD',a:'TBD',dt:'2026-07-07T16:00:00Z',venue:'Mercedes-Benz Stadium, Atlanta',type:'knockout',result:null,homeScore:null,awayScore:null},
+    {id:96,stage:'Round of 16',label:'M96: Winner M85 vs Winner M87',h:'TBD',a:'TBD',dt:'2026-07-07T20:00:00Z',venue:'BC Place, Vancouver',type:'knockout',result:null,homeScore:null,awayScore:null},
+    // QUARTER-FINALS — Jul 9-11
+    {id:97,stage:'Quarter-Final',label:'QF M97: Winner M89 vs Winner M90',h:'TBD',a:'TBD',dt:'2026-07-09T20:00:00Z',venue:'Gillette Stadium, Foxborough',type:'knockout',result:null,homeScore:null,awayScore:null},
+    {id:98,stage:'Quarter-Final',label:'QF M98: Winner M93 vs Winner M94',h:'TBD',a:'TBD',dt:'2026-07-10T19:00:00Z',venue:'SoFi Stadium, Inglewood',type:'knockout',result:null,homeScore:null,awayScore:null},
+    {id:99,stage:'Quarter-Final',label:'QF M99: Winner M91 vs Winner M92',h:'TBD',a:'TBD',dt:'2026-07-11T21:00:00Z',venue:'Hard Rock Stadium, Miami Gardens',type:'knockout',result:null,homeScore:null,awayScore:null},
+    {id:100,stage:'Quarter-Final',label:'QF M100: Winner M95 vs Winner M96',h:'TBD',a:'TBD',dt:'2026-07-12T01:00:00Z',venue:'Arrowhead Stadium, Kansas City',type:'knockout',result:null,homeScore:null,awayScore:null},
+    // SEMI-FINALS — Jul 14-15
+    {id:101,stage:'Semi-Final',label:'SF M101: Winner M97 vs Winner M98',h:'TBD',a:'TBD',dt:'2026-07-14T19:00:00Z',venue:'AT&T Stadium, Arlington',type:'knockout',result:null,homeScore:null,awayScore:null},
+    {id:102,stage:'Semi-Final',label:'SF M102: Winner M99 vs Winner M100',h:'TBD',a:'TBD',dt:'2026-07-15T19:00:00Z',venue:'Mercedes-Benz Stadium, Atlanta',type:'knockout',result:null,homeScore:null,awayScore:null},
+    // 3RD PLACE — Jul 18
+    {id:103,stage:'3rd Place',label:'3rd Place: Loser M101 vs Loser M102',h:'TBD',a:'TBD',dt:'2026-07-18T21:00:00Z',venue:'Hard Rock Stadium, Miami Gardens',type:'knockout',result:null,homeScore:null,awayScore:null},
+    // FINAL — Jul 19
+    {id:104,stage:'Final',label:'🏆 FINAL',h:'TBD',a:'TBD',dt:'2026-07-19T19:00:00Z',venue:'MetLife Stadium, New Jersey',type:'knockout',result:null,homeScore:null,awayScore:null},
   ];
 }
 
@@ -396,10 +468,10 @@ let USERS = {}; // { username: userDoc }
 let PREDICTIONS = {}; // { username: { matchId: 'home'|'draw'|'away' } }
 let TROPHY_PICKS = {}; // { username: { scorer, winner } }
 let ACTIVE_TAB = 'predictions';
-let PRED_FILTER = 'Group A';
-let RES_FILTER = 'Group A';
+let PRED_FILTER = 'All Matches';
+let RES_FILTER = 'All Matches';
 
-const STAGES_ORDER = ['Group A','Group B','Group C','Group D','Group E','Group F',
+const STAGES_ORDER = ['All Matches','Group A','Group B','Group C','Group D','Group E','Group F',
   'Group G','Group H','Group I','Group J','Group K','Group L',
   'Round of 32','Round of 16','Quarter-Final','Semi-Final','3rd Place','Final'];
 
@@ -444,6 +516,16 @@ function startListeners() {
     snap.forEach(d => { TROPHY_PICKS[d.id] = d.data(); });
     if (ACTIVE_TAB === 'trophy') renderTrophy();
   });
+  // Listen to trophy results (admin sets these at end of tournament)
+  onSnapshot(doc(db, 'config', 'trophyResults'), snap => {
+    if (snap.exists()) TROPHY_RESULTS = snap.data();
+    if (ACTIVE_TAB === 'leaderboard') renderLeaderboard();
+  });
+  // Listen to trophy results
+  onSnapshot(doc(db, 'config', 'trophyResults'), snap => {
+    if (snap.exists()) { TROPHY_RESULTS = snap.data(); }
+    if (ACTIVE_TAB === 'leaderboard') renderLeaderboard();
+  });
   // Listen to users
   onSnapshot(collection(db, 'users'), snap => {
     snap.forEach(d => { USERS[d.id] = d.data(); });
@@ -480,6 +562,10 @@ async function bootstrap() {
 
     spinnerText.textContent = 'Loading trophy picks...';
     TROPHY_PICKS = await Promise.race([fsCollection('trophyPicks'), timeout]);
+
+    spinnerText.textContent = 'Loading trophy results...';
+    const trDoc = await Promise.race([fsGet('config/trophyResults'), timeout]);
+    if (trDoc) TROPHY_RESULTS = trDoc;
 
     spinnerText.textContent = 'Loading match data...';
     const matchDocs = await Promise.race([fsCollection('matches'), timeout]);
@@ -531,6 +617,11 @@ function fmtDeadline(m) {
   return d.toLocaleDateString('en-GB',{day:'numeric',month:'short'}) + ' ' +
     d.toLocaleTimeString('en-US',{hour:'2-digit',minute:'2-digit',timeZone:'America/New_York',hour12:true}) + ' ET';
 }
+// Global trophy results set by admin
+// STATE stored in Firestore under doc 'config/trophyResults'
+// { topScorer: '...', winner: '...', mvp: '...' }
+let TROPHY_RESULTS = {};
+
 function calcPoints(username) {
   const preds = PREDICTIONS[username] || {};
   let pts = 0, details = [];
@@ -541,7 +632,25 @@ function calcPoints(username) {
       details.push({ match: m, pred: preds[m.id], correct: ok });
     }
   });
-  return { total: pts, details };
+  // Bonus points from trophy picks
+  const tp = TROPHY_PICKS[username] || {};
+  let bonusDetails = [];
+  if (TROPHY_RESULTS.topScorer && tp.scorer) {
+    const ok = tp.scorer === TROPHY_RESULTS.topScorer;
+    if (ok) pts += 10;
+    bonusDetails.push({ label: '⚽ Top Goalscorer', pick: tp.scorer, correct: ok, pts: 10 });
+  }
+  if (TROPHY_RESULTS.winner && tp.winner) {
+    const ok = tp.winner === TROPHY_RESULTS.winner;
+    if (ok) pts += 10;
+    bonusDetails.push({ label: '🥇 Tournament Winner', pick: tp.winner, correct: ok, pts: 10 });
+  }
+  if (TROPHY_RESULTS.mvp && tp.mvp) {
+    const ok = tp.mvp === TROPHY_RESULTS.mvp;
+    if (ok) pts += 10;
+    bonusDetails.push({ label: '🌟 MVP', pick: tp.mvp, correct: ok, pts: 10 });
+  }
+  return { total: pts, details, bonusDetails };
 }
 
 // ── Tab switching ──────────────────────────────────────────
@@ -704,13 +813,20 @@ window.filterPred = function(s) {
 
 function renderMatchList() {
   const preds = PREDICTIONS[CU.username] || {};
-  const matches = MATCHES.filter(m=>m.stage===PRED_FILTER);
+  let matches;
+  if (PRED_FILTER === 'All Matches') {
+    matches = [...MATCHES].sort((a,b) => new Date(a.dt) - new Date(b.dt));
+  } else {
+    matches = MATCHES.filter(m=>m.stage===PRED_FILTER);
+  }
   const c = document.getElementById('matchList'); if(!c) return;
   if (!matches.length) { c.innerHTML=`<div class="empty-state">No matches in this stage yet.</div>`; return; }
+  const allSortedPred = [...MATCHES].sort((a,b)=>new Date(a.dt)-new Date(b.dt));
   c.innerHTML = matches.map(m => {
     const locked = isLocked(m);
     const pred = preds[m.id];
     const ko = m.type === 'knockout';
+    const sortedNum = allSortedPred.indexOf(m) + 1;
     let correctness = '';
     if (m.result && pred) {
       correctness = pred===m.result ? '<span class="result-badge res-correct">✓ +3 pts</span>' : '<span class="result-badge res-wrong">✗ 0 pts</span>';
@@ -724,13 +840,16 @@ function renderMatchList() {
           <button class="pred-btn ${pred==='away'?'sel-away':''}" onclick="setPred(${m.id},'away')" ${locked?'disabled':''}>${flag(m.a)} ${m.a} WIN</button>
         </div>`
       : `<div class="prediction-btns">
-          <button class="pred-btn ${pred==='home'?'sel-home':''}" onclick="setPred(${m.id},'home')" ${locked?'disabled':''}>${flag(m.h)} HOME</button>
+          <button class="pred-btn ${pred==='home'?'sel-home':''}" onclick="setPred(${m.id},'home')" ${locked?'disabled':''}>${flag(m.h)} ${m.h}</button>
           <button class="pred-btn ${pred==='draw'?'sel-draw':''}" onclick="setPred(${m.id},'draw')" ${locked?'disabled':''}>DRAW</button>
-          <button class="pred-btn ${pred==='away'?'sel-away':''}" onclick="setPred(${m.id},'away')" ${locked?'disabled':''}>${flag(m.a)} AWAY</button>
+          <button class="pred-btn ${pred==='away'?'sel-away':''}" onclick="setPred(${m.id},'away')" ${locked?'disabled':''}>${flag(m.a)} ${m.a}</button>
         </div>`;
     return `<div class="match-card">
       <div class="match-header">
-        <span class="${ko?'tag-knockout':'match-group-label'}">${ko&&m.label?m.label:m.stage}</span>
+        <div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap">
+          <span style="font-family:'Bebas Neue',sans-serif;font-size:13px;color:var(--muted);background:var(--bg);border:1px solid var(--border);border-radius:4px;padding:1px 7px;letter-spacing:1px">M${sortedNum}</span>
+          <span class="${ko?'tag-knockout':'match-group-label'}">${ko&&m.label?m.label:m.stage}</span>
+        </div>
         <div style="text-align:right"><div class="match-date">${fmtDate(m.dt)}</div><div class="match-venue">${m.venue}</div></div>
       </div>
       ${score}
@@ -781,6 +900,7 @@ function renderLeaderboard() {
     <div class="detail-row"><span>Correct knockout result (W/L)</span><span class="detail-pts">+3</span></div>
     <div class="detail-row"><span>Correct top goalscorer</span><span class="detail-pts">+10 🎯</span></div>
     <div class="detail-row"><span>Correct tournament winner</span><span class="detail-pts">+10 🏆</span></div>
+    <div class="detail-row"><span>Correct MVP of the tournament</span><span class="detail-pts">+10 🌟</span></div>
   </div></div>`;
   document.getElementById('mainContent').innerHTML = html;
 }
@@ -788,38 +908,56 @@ function renderLeaderboard() {
 window.showUserDetail = function(username) {
   const pts = calcPoints(username);
   const tp = TROPHY_PICKS[username] || {};
-  let html = `<div style="margin-bottom:18px">
-    <div style="font-size:26px;font-family:'Bebas Neue',sans-serif;color:var(--gold)">${pts.total} <span style="font-size:15px;color:var(--muted)">POINTS</span></div>
-    <div style="font-size:12px;color:var(--muted);margin-top:2px">${pts.details.length} match result(s) evaluated</div>
-  </div>
-  <div style="font-family:'Barlow Condensed',sans-serif;font-size:11px;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);margin-bottom:6px">Tournament Picks</div>
-  <div class="detail-row"><span>⚽ Top Scorer</span><span style="color:var(--text);font-size:13px">${tp.scorer||'—'}</span></div>
-  <div class="detail-row"><span>🏆 Winner</span><span style="color:var(--text);font-size:13px">${tp.winner?flag(tp.winner)+' '+tp.winner:'—'}</span></div>
-  <div class="divider"></div>
-  <div style="font-family:'Barlow Condensed',sans-serif;font-size:11px;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);margin-bottom:6px">Match Predictions</div>`;
-  if (!pts.details.length) html += `<div class="empty-state" style="padding:14px">No results entered yet.</div>`;
-  else html += pts.details.map(d => {
-    const pl = d.pred==='home' ? d.match.h+' Win' : d.pred==='draw' ? 'Draw' : d.match.a+' Win';
-    return `<div class="detail-row">
-      <div><div style="font-size:12px;color:var(--muted)">${d.match.h} vs ${d.match.a}</div><div class="detail-pred">${pl}</div></div>
-      <div>${d.correct?'<span class="result-badge res-correct">+3</span>':'<span class="result-badge res-wrong">0</span>'}</div>
-    </div>`;
-  }).join('');
+
+  let html = '';
+  html += '<div style="margin-bottom:18px">';
+  html += '<div style="font-size:26px;font-family:Bebas Neue,sans-serif;color:var(--gold)">' + pts.total + ' <span style="font-size:15px;color:var(--muted)">POINTS</span></div>';
+  html += '<div style="font-size:12px;color:var(--muted);margin-top:2px">' + pts.details.length + ' match result(s) evaluated</div>';
+  html += '</div>';
+  html += '<div style="font-family:Barlow Condensed,sans-serif;font-size:11px;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);margin-bottom:6px">Tournament Picks</div>';
+  html += '<div class="detail-row"><span>&#9917; Top Scorer</span><span style="color:var(--text);font-size:13px">' + (tp.scorer || '&mdash;') + '</span></div>';
+  html += '<div class="detail-row"><span>&#127941; Winner</span><span style="color:var(--text);font-size:13px">' + (tp.winner ? flag(tp.winner) + ' ' + tp.winner : '&mdash;') + '</span></div>';
+  html += '<div class="detail-row"><span>&#127775; MVP</span><span style="color:var(--text);font-size:13px">' + (tp.mvp || '&mdash;') + '</span></div>';
+  html += '<div class="divider"></div>';
+
+  if (pts.bonusDetails && pts.bonusDetails.length) {
+    html += '<div style="font-family:Barlow Condensed,sans-serif;font-size:11px;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);margin-bottom:6px">Bonus Points</div>';
+    pts.bonusDetails.forEach(function(b) {
+      html += '<div class="detail-row">';
+      html += '<div><div style="font-size:12px;color:var(--muted)">' + b.label + '</div><div class="detail-pred">' + b.pick + '</div></div>';
+      html += '<div>' + (b.correct ? '<span class="result-badge res-correct">+10</span>' : '<span class="result-badge res-wrong">0</span>') + '</div>';
+      html += '</div>';
+    });
+    html += '<div class="divider"></div>';
+  }
+
+  html += '<div style="font-family:Barlow Condensed,sans-serif;font-size:11px;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);margin-bottom:6px">Match Predictions</div>';
+  if (!pts.details.length) {
+    html += '<div class="empty-state" style="padding:14px">No results entered yet.</div>';
+  } else {
+    pts.details.forEach(function(d) {
+      const pl = d.pred === 'home' ? d.match.h + ' Win' : d.pred === 'draw' ? 'Draw' : d.match.a + ' Win';
+      html += '<div class="detail-row">';
+      html += '<div><div style="font-size:12px;color:var(--muted)">' + d.match.h + ' vs ' + d.match.a + '</div><div class="detail-pred">' + pl + '</div></div>';
+      html += '<div>' + (d.correct ? '<span class="result-badge res-correct">+3</span>' : '<span class="result-badge res-wrong">0</span>') + '</div>';
+      html += '</div>';
+    });
+  }
   document.getElementById('modalTitle').textContent = username.toUpperCase() + ' — BREAKDOWN';
   document.getElementById('modalContent').innerHTML = html;
   document.getElementById('detailModal').classList.add('show');
-};
-
+}
 window.closeModal = function() { document.getElementById('detailModal').classList.remove('show'); };
 
 // ── Results (Admin) ───────────────────────────────────────
 function renderResults() {
   if (!CU || CU.role !== 'admin') return;
   const stages = [...new Set(MATCHES.map(m=>m.stage))].sort((a,b)=>STAGES_ORDER.indexOf(a)-STAGES_ORDER.indexOf(b));
+  const allStages = ['All Matches', ...stages];
   document.getElementById('mainContent').innerHTML = `
     <div class="section-title">✏️ ENTER RESULTS</div>
     <div class="section-sub">Enter final scores. All players' points update instantly.</div>
-    <div class="group-tabs">${stages.map(s=>`<button class="group-tab ${RES_FILTER===s?'active':''}" onclick="filterRes('${s}')">${s}</button>`).join('')}</div>
+    <div class="group-tabs">${allStages.map(s=>`<button class="group-tab ${RES_FILTER===s?'active':''}" onclick="window.filterRes('${s}')">${s}</button>`).join('')}</div>
     <div id="resultList"></div>`;
   renderResultList();
 }
@@ -831,9 +969,15 @@ window.filterRes = function(s) {
 };
 
 function renderResultList() {
-  const matches = MATCHES.filter(m=>m.stage===RES_FILTER);
+  let matches;
+  if (RES_FILTER === 'All Matches') {
+    matches = [...MATCHES].sort((a,b) => new Date(a.dt) - new Date(b.dt));
+  } else {
+    matches = MATCHES.filter(m=>m.stage===RES_FILTER).sort((a,b) => new Date(a.dt) - new Date(b.dt));
+  }
   const c = document.getElementById('resultList'); if(!c) return;
   if (!matches.length) { c.innerHTML=`<div class="empty-state">No matches.</div>`; return; }
+  const allSortedRes = [...MATCHES].sort((a,b)=>new Date(a.dt)-new Date(b.dt));
   c.innerHTML = matches.map(m => {
     const ko = m.type === 'knockout';
     const hasResult = m.result !== null;
@@ -853,7 +997,10 @@ function renderResultList() {
         </div>`;
     return `<div class="match-card">
       <div class="match-header">
-        <span class="${ko?'tag-knockout':'match-group-label'}">${ko&&m.label?m.label:m.stage}</span>
+        <div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap">
+          <span style="font-family:'Bebas Neue',sans-serif;font-size:13px;color:var(--muted);background:var(--bg);border:1px solid var(--border);border-radius:4px;padding:1px 7px;letter-spacing:1px">M${allSortedRes.indexOf(m)+1}</span>
+          <span class="${ko?'tag-knockout':'match-group-label'}">${ko&&m.label?m.label:m.stage}</span>
+        </div>
         <div style="text-align:right">
           <div class="match-date">${fmtDate(m.dt)}</div>
           ${hasResult?`<span class="badge badge-green">✓ Saved</span>`:''}
@@ -932,38 +1079,76 @@ window.saveKOTeams = async function(id) {
 // ── Admin ─────────────────────────────────────────────────
 function renderAdmin() {
   if (!CU || CU.role !== 'admin') return;
-  const players = Object.values(USERS).filter(u=>u.role!=='admin');
-  document.getElementById('mainContent').innerHTML = `
-    <div class="section-title">⚙️ ADMIN PANEL</div>
-    <div class="section-sub">All changes sync instantly to all users.</div>
-    <div class="card"><div class="card-title">➕ CREATE NEW USER</div>
-      <div class="admin-grid">
-        <div class="form-group"><label class="form-label">Username</label><input class="form-input" id="newUser" type="text" placeholder="e.g. ahmed_96" autocomplete="off"></div>
-        <div class="form-group"><label class="form-label">Password</label><input class="form-input" id="newPass" type="text" placeholder="Min 4 characters"></div>
-      </div>
-      <button class="btn btn-gold" onclick="createUser()">CREATE USER</button>
-      <div id="createMsg" class="success-msg hidden"></div>
-    </div>
-    <div class="card"><div class="card-title">👥 PLAYERS (${players.length})</div>
-      ${!players.length?'<div class="empty-state" style="padding:14px">No players yet.</div>':
-        players.map(u=>`<div class="user-row">
-          <div><div class="user-row-name">${u.username}</div>
-          <div style="font-size:11px;color:var(--muted)">${calcPoints(u.username).total} pts</div></div>
-          <div style="display:flex;gap:6px">
-            <button class="btn btn-outline btn-sm" onclick="adminResetPwd('${u.username}')">RESET PWD</button>
-            <button class="btn btn-red btn-sm" onclick="deleteUser('${u.username}')">DELETE</button>
-          </div>
-        </div>`).join('')}
-    </div>
-    <div class="card"><div class="card-title">🔑 CHANGE ADMIN PASSWORD</div>
-      <div class="form-group"><label class="form-label">New Password</label><input class="form-input" id="adminPwd" type="password" placeholder="Min 4 characters"></div>
-      <button class="btn btn-outline" onclick="changeAdminPwd()">UPDATE PASSWORD</button>
-      <div id="pwdMsg" class="success-msg hidden"></div>
-    </div>
-    <div class="card"><div class="card-title">🗑️ DANGER ZONE</div>
-      <p style="color:var(--muted);font-size:13px;margin-bottom:12px">Reset all predictions and match results. Cannot be undone.</p>
-      <button class="btn btn-red" onclick="resetAll()">RESET ALL DATA</button>
-    </div>`;
+  const players = Object.values(USERS).filter(function(u){ return u.role !== 'admin'; });
+
+  let html = '';
+  html += '<div class="section-title">ADMIN PANEL</div>';
+  html += '<div class="section-sub">All changes sync instantly to all users.</div>';
+
+  // Create user
+  html += '<div class="card"><div class="card-title">+ CREATE NEW USER</div>';
+  html += '<div class="admin-grid">';
+  html += '<div class="form-group"><label class="form-label">Username</label><input class="form-input" id="newUser" type="text" placeholder="e.g. ahmed_96" autocomplete="off"></div>';
+  html += '<div class="form-group"><label class="form-label">Password</label><input class="form-input" id="newPass" type="text" placeholder="Min 4 characters"></div>';
+  html += '</div>';
+  html += '<button class="btn btn-gold" onclick="window.createUser()">CREATE USER</button>';
+  html += '<div id="createMsg" class="success-msg hidden"></div></div>';
+
+  // Players list
+  html += '<div class="card"><div class="card-title">PLAYERS (' + players.length + ')</div>';
+  if (!players.length) {
+    html += '<div class="empty-state" style="padding:14px">No players yet.</div>';
+  } else {
+    players.forEach(function(u) {
+      const pts = calcPoints(u.username).total;
+      html += '<div class="user-row">';
+      html += '<div><div class="user-row-name">' + u.username + '</div>';
+      html += '<div style="font-size:11px;color:var(--muted)">' + pts + ' pts</div></div>';
+      html += '<div style="display:flex;gap:6px">';
+      html += '<button class="btn btn-outline btn-sm" data-u="' + u.username + '" onclick="window.adminResetPwd(this.dataset.u)">RESET PWD</button>';
+      html += '<button class="btn btn-red btn-sm" data-u="' + u.username + '" onclick="window.deleteUser(this.dataset.u)">DELETE</button>';
+      html += '</div></div>';
+    });
+  }
+  html += '</div>';
+
+  // Change admin password
+  html += '<div class="card"><div class="card-title">CHANGE ADMIN PASSWORD</div>';
+  html += '<div class="form-group"><label class="form-label">New Password</label><input class="form-input" id="adminPwd" type="password" placeholder="Min 4 characters"></div>';
+  html += '<button class="btn btn-outline" onclick="window.changeAdminPwd()">UPDATE PASSWORD</button>';
+  html += '<div id="pwdMsg" class="success-msg hidden"></div></div>';
+
+  // Trophy results
+  html += '<div class="card"><div class="card-title">SET TROPHY RESULTS</div>';
+  html += '<div style="color:var(--muted);font-size:12px;margin-bottom:14px">Set at end of tournament to award +10 bonus points automatically.</div>';
+
+  html += '<div class="form-group"><label class="form-label">Top Goalscorer (actual)</label><select class="form-input" id="trScorer"><option value="">Select...</option>';
+  TOP_SCORERS.forEach(function(s) {
+    html += '<option value="' + s + '"' + (TROPHY_RESULTS.topScorer === s ? ' selected' : '') + '>' + s + '</option>';
+  });
+  html += '</select></div>';
+
+  html += '<div class="form-group"><label class="form-label">Tournament Winner (actual)</label><select class="form-input" id="trWinner"><option value="">Select...</option>';
+  Object.values(GROUPS).flat().sort().forEach(function(t) {
+    html += '<option value="' + t + '"' + (TROPHY_RESULTS.winner === t ? ' selected' : '') + '>' + flag(t) + ' ' + t + '</option>';
+  });
+  html += '</select></div>';
+
+  html += '<div class="form-group"><label class="form-label">MVP (actual)</label><select class="form-input" id="trMVP"><option value="">Select...</option>';
+  TOP_SCORERS.forEach(function(s) {
+    html += '<option value="' + s + '"' + (TROPHY_RESULTS.mvp === s ? ' selected' : '') + '>' + s + '</option>';
+  });
+  html += '</select></div>';
+
+  html += '<button class="btn btn-gold" onclick="window.saveTrophyResults()">SAVE TROPHY RESULTS</button>';
+  html += '<div id="trMsg" class="success-msg hidden"></div></div>';
+
+  // Danger zone
+  html += '<div class="card"><div class="card-title">DANGER ZONE</div>';
+  html += '<p style="color:var(--muted);font-size:13px;margin-bottom:12px">Reset all predictions and match results. Cannot be undone.</p>';
+  html += '<button class="btn btn-red" onclick="window.resetAll()">RESET ALL DATA</button></div>';
+
+  document.getElementById('mainContent').innerHTML = html;
 }
 
 window.createUser = async function() {
@@ -1015,6 +1200,34 @@ window.changeAdminPwd = async function() {
   msg.textContent='✓ Password updated & re-hashed.'; msg.style.color='var(--green)'; msg.classList.remove('hidden');
   document.getElementById('adminPwd').value='';
   setTimeout(()=>msg.classList.add('hidden'), 3000);
+};
+
+window.saveTrophyResults = async function() {
+  const scorer = document.getElementById('trScorer').value;
+  const winner = document.getElementById('trWinner').value;
+  const mvp = document.getElementById('trMVP').value;
+  const msg = document.getElementById('trMsg');
+  if (!scorer || !winner || !mvp) { msg.textContent='Please select all three results.'; msg.style.color='var(--red)'; msg.classList.remove('hidden'); return; }
+  await fsSet('config/trophyResults', { topScorer: scorer, winner, mvp, setAt: Date.now() });
+  TROPHY_RESULTS = { topScorer: scorer, winner, mvp };
+  msg.textContent = '✓ Trophy results saved! Points updated for all users.'; msg.style.color='var(--green)'; msg.classList.remove('hidden');
+  setTimeout(() => { msg.classList.add('hidden'); renderLeaderboard(); }, 3000);
+};
+
+window.saveTrophyResults = async function() {
+  const scorer = document.getElementById('trScorer').value;
+  const winner = document.getElementById('trWinner').value;
+  const mvp = document.getElementById('trMVP').value;
+  const msg = document.getElementById('trMsg');
+  if (!scorer || !winner || !mvp) {
+    msg.textContent = 'Please select all three results.';
+    msg.style.color = 'var(--red)'; msg.classList.remove('hidden'); return;
+  }
+  await fsSet('config/trophyResults', { topScorer: scorer, winner, mvp, setAt: Date.now() });
+  TROPHY_RESULTS = { topScorer: scorer, winner, mvp };
+  msg.textContent = '✓ Trophy results saved! Bonus points awarded automatically.';
+  msg.style.color = 'var(--green)'; msg.classList.remove('hidden');
+  setTimeout(() => { msg.classList.add('hidden'); renderAdmin(); }, 3000);
 };
 
 window.resetAll = async function() {
