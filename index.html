@@ -335,6 +335,16 @@ const TOP_SCORERS=[
   // HAITI
   'Frantzdy Pierrot (Haiti)',
   // OTHER
+  // SAUDI ARABIA
+  'Salem Al-Dawsari (Saudi Arabia)','Feras Al-Brikan (Saudi Arabia)','Saleh Al-Shehri (Saudi Arabia)',
+  // BRAZIL extra
+  'Thiago Silva (Brazil)',
+  // OTHER
+  // SAUDI ARABIA
+  'Salem Al-Dawsari (Saudi Arabia)','Feras Al-Brikan (Saudi Arabia)','Saleh Al-Shehri (Saudi Arabia)',
+  // BRAZIL extra
+  'Thiago Silva (Brazil)',
+  // OTHER
   'Other'
 ];
 
@@ -748,50 +758,91 @@ function renderTrophy() {
   const locked = isTrophyLocked();
   const tp = TROPHY_PICKS[CU.username] || {};
   const allTeams = Object.values(GROUPS).flat().sort();
-  let html = `<div class="section-title">🏆 TOURNAMENT PICKS</div>
-  <div class="section-sub">Must be submitted before <strong style="color:var(--gold)">Thu 11 Jun 2026 · 14:15 ET</strong>. Permanently locked after that.</div>`;
-  if (locked) html += `<div style="background:rgba(230,57,70,.15);border:1px solid var(--red);border-radius:8px;padding:10px 14px;margin-bottom:14px;color:var(--red);font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:13px;letter-spacing:1px">🔒 PERMANENTLY LOCKED — Thu 11 Jun 2026 · 14:15 ET</div>`;
-  html += `
-  <div class="trophy-box">
-    <div class="trophy-title">⚽ TOP GOALSCORER</div>
-    <select class="form-input" id="scorerPick" ${locked?'disabled':''}>
-      <option value="">— Select a player —</option>
-      ${TOP_SCORERS.map(s=>`<option value="${s}" ${tp.scorer===s?'selected':''}>${s}</option>`).join('')}
-    </select>
-  </div>
-  <div class="trophy-box">
-    <div class="trophy-title">🥇 TOURNAMENT WINNER</div>
-    <select class="form-input" id="winnerPick" ${locked?'disabled':''}>
-      <option value="">— Select a team —</option>
-      ${allTeams.map(t=>`<option value="${t}" ${tp.winner===t?'selected':''}>${flag(t)} ${t}</option>`).join('')}
-    </select>
-  </div>`;
-  if (!locked) html += `<button class="btn btn-gold" onclick="saveTrophy()">SAVE PICKS</button><div id="trophyMsg" class="success-msg hidden"></div>`;
+
+  let html = '';
+  html += '<div class="section-title">TOURNAMENT PICKS</div>';
+  html += '<div class="section-sub">Must be submitted before <strong style="color:var(--gold)">Thu 11 Jun 2026 &middot; 14:15 ET</strong>. Permanently locked after that.</div>';
+
   if (locked) {
-    html += `<hr class="divider"><div class="card-title">ALL PLAYERS' PICKS</div>`;
-    const players = Object.values(USERS).filter(u=>u.role!=='admin');
-    if (!players.length) html += `<div class="empty-state">No players yet.</div>`;
-    else html += players.map(u => {
-      const p = TROPHY_PICKS[u.username] || {};
-      return `<div class="user-row"><div>
-        <div class="user-row-name">${u.username}</div>
-        <div style="font-size:12px;color:var(--muted);margin-top:2px">⚽ ${p.scorer||'—'} &nbsp;·&nbsp; 🥇 ${p.winner?flag(p.winner)+' '+p.winner:'—'}</div>
-      </div></div>`;
-    }).join('');
+    html += '<div style="background:rgba(230,57,70,.15);border:1px solid var(--red);border-radius:8px;padding:10px 14px;margin-bottom:14px;color:var(--red);font-family:Barlow Condensed,sans-serif;font-weight:700;font-size:13px;letter-spacing:1px">PERMANENTLY LOCKED &mdash; Thu 11 Jun 2026 &middot; 14:15 ET</div>';
   }
+
+  // Top Goalscorer
+  html += '<div class="trophy-box">';
+  html += '<div class="trophy-title">&#9917; TOP GOALSCORER</div>';
+  html += '<select class="form-input" id="scorerPick"' + (locked ? ' disabled' : '') + '>';
+  html += '<option value="">&#8212; Select a player &#8212;</option>';
+  TOP_SCORERS.forEach(function(s) {
+    html += '<option value="' + s + '"' + (tp.scorer === s ? ' selected' : '') + '>' + s + '</option>';
+  });
+  html += '</select></div>';
+
+  // Tournament Winner
+  html += '<div class="trophy-box">';
+  html += '<div class="trophy-title">&#127941; TOURNAMENT WINNER</div>';
+  html += '<select class="form-input" id="winnerPick"' + (locked ? ' disabled' : '') + '>';
+  html += '<option value="">&#8212; Select a team &#8212;</option>';
+  allTeams.forEach(function(t) {
+    html += '<option value="' + t + '"' + (tp.winner === t ? ' selected' : '') + '>' + flag(t) + ' ' + t + '</option>';
+  });
+  html += '</select></div>';
+
+  // MVP
+  html += '<div class="trophy-box" style="background:linear-gradient(135deg,#2a1a2a,#1a2235);border-color:rgba(230,57,70,.3)">';
+  html += '<div class="trophy-title" style="color:#e63946">&#127775; MVP OF THE TOURNAMENT</div>';
+  html += '<div style="color:var(--muted);font-size:12px;margin-bottom:10px">Which player will be the best player of the tournament?</div>';
+  html += '<select class="form-input" id="mvpPick"' + (locked ? ' disabled' : '') + '>';
+  html += '<option value="">&#8212; Select a player &#8212;</option>';
+  TOP_SCORERS.forEach(function(s) {
+    html += '<option value="' + s + '"' + (tp.mvp === s ? ' selected' : '') + '>' + s + '</option>';
+  });
+  html += '</select></div>';
+
+  if (!locked) {
+    html += '<button class="btn btn-gold" onclick="window.saveTrophy()">SAVE ALL PICKS</button>';
+    html += '<div id="trophyMsg" class="success-msg hidden"></div>';
+  }
+
+  if (locked) {
+    html += '<hr class="divider"><div class="card-title">ALL PLAYERS PICKS</div>';
+    const players = Object.values(USERS).filter(function(u) { return u.role !== 'admin'; });
+    if (!players.length) {
+      html += '<div class="empty-state">No players yet.</div>';
+    } else {
+      players.forEach(function(u) {
+        const p = TROPHY_PICKS[u.username] || {};
+        html += '<div class="user-row"><div>';
+        html += '<div class="user-row-name">' + u.username + '</div>';
+        html += '<div style="font-size:12px;color:var(--muted);margin-top:2px">&#9917; ' + (p.scorer || '&mdash;') + '</div>';
+        html += '<div style="font-size:12px;color:var(--muted)">&#127941; ' + (p.winner ? flag(p.winner) + ' ' + p.winner : '&mdash;') + '</div>';
+        html += '<div style="font-size:12px;color:var(--muted)">&#127775; MVP: ' + (p.mvp || '&mdash;') + '</div>';
+        html += '</div></div>';
+      });
+    }
+  }
+
   document.getElementById('mainContent').innerHTML = html;
 }
+
 
 window.saveTrophy = async function() {
   if (isTrophyLocked()) return;
   const scorer = document.getElementById('scorerPick').value;
   const winner = document.getElementById('winnerPick').value;
+  const mvp = document.getElementById('mvpPick').value;
   const msg = document.getElementById('trophyMsg');
-  if (!scorer || !winner) { msg.textContent = 'Please select both options.'; msg.style.color='var(--red)'; msg.classList.remove('hidden'); return; }
-  await fsSet(`trophyPicks/${CU.username}`, { scorer, winner, updatedAt: Date.now() });
-  TROPHY_PICKS[CU.username] = { scorer, winner };
-  msg.textContent = '✓ Picks saved!'; msg.style.color = 'var(--green)'; msg.classList.remove('hidden');
-  setTimeout(() => msg.classList.add('hidden'), 3000);
+  if (!scorer || !winner || !mvp) {
+    msg.textContent = 'Please select all three picks (Goalscorer, Winner and MVP).';
+    msg.style.color = 'var(--red)';
+    msg.classList.remove('hidden');
+    return;
+  }
+  await fsSet('trophyPicks/' + CU.username, { scorer: scorer, winner: winner, mvp: mvp, updatedAt: Date.now() });
+  TROPHY_PICKS[CU.username] = { scorer: scorer, winner: winner, mvp: mvp };
+  msg.textContent = 'All picks saved!';
+  msg.style.color = 'var(--green)';
+  msg.classList.remove('hidden');
+  setTimeout(function() { msg.classList.add('hidden'); }, 3000);
 };
 
 // ── Predictions ───────────────────────────────────────────
