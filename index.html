@@ -338,12 +338,12 @@ const TOP_SCORERS=[
   // SAUDI ARABIA
   'Salem Al-Dawsari (Saudi Arabia)','Feras Al-Brikan (Saudi Arabia)','Saleh Al-Shehri (Saudi Arabia)',
   // BRAZIL extra
-  'Thiago Silva (Brazil)',
+  'Igor Thiago (Brazil)',
   // OTHER
   // SAUDI ARABIA
   'Salem Al-Dawsari (Saudi Arabia)','Feras Al-Brikan (Saudi Arabia)','Saleh Al-Shehri (Saudi Arabia)',
   // BRAZIL extra
-  'Thiago Silva (Brazil)',
+  'Igor Thiago (Brazil)',
   // OTHER
   'Other'
 ];
@@ -805,7 +805,7 @@ function renderTrophy() {
 
   if (locked) {
     html += '<hr class="divider"><div class="card-title">ALL PLAYERS PICKS</div>';
-    const players = Object.values(USERS).filter(function(u) { return u.role !== 'admin'; });
+    const players = Object.values(USERS);
     if (!players.length) {
       html += '<div class="empty-state">No players yet.</div>';
     } else {
@@ -1130,7 +1130,7 @@ window.saveKOTeams = async function(id) {
 // ── Admin ─────────────────────────────────────────────────
 function renderAdmin() {
   if (!CU || CU.role !== 'admin') return;
-  const players = Object.values(USERS).filter(function(u){ return u.role !== 'admin'; });
+  const players = Object.values(USERS);
 
   let html = '';
   html += '<div class="section-title">ADMIN PANEL</div>';
