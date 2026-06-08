@@ -269,7 +269,7 @@ const TOP_SCORERS=[
   // NORWAY
   'Erling Haaland (Norway)','Alexander Sørloth (Norway)',
   // BRAZIL
-  'Vinicius Jr (Brazil)','Richarlison (Brazil)','Rodrygo (Brazil)','Gabriel Martinelli (Brazil)','Lucas Paquetá (Brazil)',
+  'Vinicius Jr (Brazil)','Richarlison (Brazil)','Rodrygo (Brazil)','Gabriel Martinelli (Brazil)','Lucas Paquetá (Brazil)','Raphinha (Brazil)',
   // ENGLAND
   'Harry Kane (England)','Bukayo Saka (England)','Phil Foden (England)','Cole Palmer (England)','Anthony Gordon (England)',
   // PORTUGAL
@@ -929,7 +929,7 @@ window.setPred = async function(matchId, val) {
 
 // ── Leaderboard ───────────────────────────────────────────
 function renderLeaderboard() {
-  const players = Object.values(USERS).filter(u=>u.role!=='admin');
+  const players = Object.values(USERS);
   const ranked = players.map(u => { const p=calcPoints(u.username); return {...u,...p}; }).sort((a,b)=>b.total-a.total);
   let html = `<div class="section-title">📊 LEADERBOARD</div>
   <div class="section-sub">Live rankings · Click a player to see their full breakdown.</div>`;
