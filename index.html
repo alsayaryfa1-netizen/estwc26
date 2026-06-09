@@ -30,12 +30,15 @@ main{max-width:920px;margin:0 auto;padding:22px 14px 80px}
 .section-title{font-family:'Bebas Neue',sans-serif;font-size:24px;color:#fff;letter-spacing:3px;margin-bottom:4px}
 .section-sub{color:var(--muted);font-size:13px;margin-bottom:18px}
 /* LOGIN */
-#loginScreen{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;background:radial-gradient(ellipse at 50% 0%,#1a3a6a,#0a0e1a 60%);padding:20px}
-.login-logo{font-family:'Bebas Neue',sans-serif;font-size:46px;color:var(--gold);letter-spacing:4px;text-shadow:0 0 40px rgba(245,200,66,.5);text-align:center;line-height:1;margin-bottom:4px}
-.login-logo span{color:#fff}
-.login-sub{color:var(--muted);font-size:12px;letter-spacing:3px;text-transform:uppercase;text-align:center;margin-bottom:10px}
-.login-tagline{font-family:'Bebas Neue',sans-serif;font-size:18px;color:var(--gold);letter-spacing:4px;text-align:center;margin-bottom:28px;opacity:.85}
-.login-box{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:28px;width:100%;max-width:350px;box-shadow:0 20px 60px rgba(0,0,0,.5)}
+#loginScreen{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:20px;position:relative;background:#0a0e1a;}
+#loginScreen::before{content:'';position:absolute;inset:0;background-image:url('https://digitalhub.fifa.com/transform/a6e8b8eb-1d7e-4b5a-b44d-a3a96b3e0b58/2026-FIFA-World-Cup-Official-Emblem?io=transform:fill,width:1200&quality=75');background-size:cover;background-position:center top;background-repeat:no-repeat;opacity:0.22;z-index:0;}
+#loginScreen::after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,rgba(10,14,26,0.3) 0%,rgba(10,14,26,0.7) 50%,rgba(10,14,26,0.97) 100%);z-index:1;}
+#loginScreen>*{position:relative;z-index:2;}
+.login-logo{font-family:'Bebas Neue',sans-serif;font-size:56px;color:var(--gold);letter-spacing:6px;text-shadow:0 0 40px rgba(245,200,66,.7),0 2px 20px rgba(0,0,0,0.9);text-align:center;line-height:1;margin-bottom:6px}
+.login-logo span{color:#fff;text-shadow:0 2px 20px rgba(0,0,0,0.9)}
+.login-sub{color:rgba(255,255,255,0.7);font-size:13px;letter-spacing:4px;text-transform:uppercase;text-align:center;margin-bottom:10px;text-shadow:0 1px 8px rgba(0,0,0,0.8)}
+.login-tagline{font-family:'Bebas Neue',sans-serif;font-size:22px;color:var(--gold);letter-spacing:5px;text-align:center;margin-bottom:28px;opacity:1;text-shadow:0 0 30px rgba(245,200,66,0.6)}
+.login-box{background:rgba(20,29,46,0.92);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border:1px solid rgba(245,200,66,0.2);border-radius:18px;padding:28px;width:100%;max-width:350px;box-shadow:0 25px 80px rgba(0,0,0,.8),0 0 0 1px rgba(255,255,255,0.05)}
 .form-group{margin-bottom:13px}
 .form-label{font-family:'Barlow Condensed',sans-serif;font-size:11px;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);margin-bottom:5px;display:block}
 .form-input{width:100%;background:var(--bg3);border:1.5px solid var(--border);border-radius:8px;padding:10px 13px;color:var(--text);font-family:'Barlow',sans-serif;font-size:15px;outline:none;transition:border-color .2s}
@@ -264,89 +267,107 @@ const GROUPS={
 };
 
 const TOP_SCORERS=[
-  // FRANCE
-  'Kylian Mbappé (France)','Ousmane Dembélé (France)','Marcus Thuram (France)',
-  // NORWAY
-  'Erling Haaland (Norway)','Alexander Sørloth (Norway)',
-  // BRAZIL
-  'Vinicius Jr (Brazil)','Richarlison (Brazil)','Rodrygo (Brazil)','Gabriel Martinelli (Brazil)','Lucas Paquetá (Brazil)','Raphinha (Brazil)',
-  // ENGLAND
-  'Harry Kane (England)','Bukayo Saka (England)','Phil Foden (England)','Cole Palmer (England)','Anthony Gordon (England)',
-  // PORTUGAL
-  'Cristiano Ronaldo (Portugal)','Rafael Leão (Portugal)','Pedro Neto (Portugal)','Diogo Jota (Portugal)',
-  // ARGENTINA
-  'Lionel Messi (Argentina)','Lautaro Martínez (Argentina)','Julián Álvarez (Argentina)','Nicolás González (Argentina)',
-  // SPAIN
-  'Lamine Yamal (Spain)','Nico Williams (Spain)','Álvaro Morata (Spain)','Ferran Torres (Spain)',
-  // GERMANY
-  'Jamal Musiala (Germany)','Florian Wirtz (Germany)','Kai Havertz (Germany)','Leroy Sané (Germany)','Serge Gnabry (Germany)',
-  // NETHERLANDS
-  'Cody Gakpo (Netherlands)','Memphis Depay (Netherlands)','Donyell Malen (Netherlands)','Wout Weghorst (Netherlands)',
-  // BELGIUM
-  'Romelu Lukaku (Belgium)','Lois Openda (Belgium)','Leandro Trossard (Belgium)',
-  // SWEDEN
-  'Viktor Gyökeres (Sweden)','Alexander Isak (Sweden)','Dejan Kulusevski (Sweden)',
-  // COLOMBIA
-  'Luis Díaz (Colombia)','Jhon Duran (Colombia)','Radamel Falcao (Colombia)',
-  // MOROCCO
-  'Youssef En-Nesyri (Morocco)','Soufiane Rahimi (Morocco)','Hakim Ziyech (Morocco)',
-  // MEXICO
-  'Santiago Giménez (Mexico)','Raúl Jiménez (Mexico)','Julián Quiñones (Mexico)',
-  // USA
-  'Christian Pulisic (USA)','Folarin Balogun (USA)','Tim Weah (USA)',
-  // SENEGAL
-  'Sadio Mané (Senegal)','Nicolas Jackson (Senegal)',
-  // URUGUAY
-  'Darwin Núñez (Uruguay)','Facundo Pellistri (Uruguay)',
-  // JAPAN
-  'Kaoru Mitoma (Japan)','Ritsu Doan (Japan)','Ayase Ueda (Japan)',
-  // ECUADOR
-  'Enner Valencia (Ecuador)','Kevin Rodríguez (Ecuador)',
-  // CROATIA
-  'Andrej Kramarić (Croatia)','Bruno Petković (Croatia)',
-  // SOUTH KOREA
-  'Son Heung-Min (South Korea)','Cho Gue-sung (South Korea)',
-  // AUSTRALIA
-  'Mathew Leckie (Australia)','Nestory Irankunda (Australia)',
-  // GHANA
-  'Jordan Ayew (Ghana)','Antoine Semenyo (Ghana)',
-  // IRAN
-  'Mehdi Taremi (Iran)',
-  // EGYPT
-  'Omar Marmoush (Egypt)','Mostafa Mohamed (Egypt)',
-  // ALGERIA
-  'Riyad Mahrez (Algeria)','Amine Gouiri (Algeria)','Mohamed Amine Amoura (Algeria)',
-  // AUSTRIA
-  'Marcel Sabitzer (Austria)','Michael Gregoritsch (Austria)',
-  // CANADA
-  'Jonathan David (Canada)','Cyle Larin (Canada)','Tajon Buchanan (Canada)',
-  // SCOTLAND
-  'Che Adams (Scotland)','Lyndon Dykes (Scotland)',
-  // TURKEY
-  'Arda Güler (Turkey)','Kerem Aktürkoğlu (Turkey)','Baris Alper Yilmaz (Turkey)',
-  // IVORY COAST
-  'Sébastien Haller (Ivory Coast)','Nicolas Pépé (Ivory Coast)',
-  // PORTUGAL
-  'Gonçalo Ramos (Portugal)',
-  // PANAMA
-  'Ismael Díaz (Panama)',
-  // DR CONGO
-  'Cédric Bakambu (DR Congo)','Silas (DR Congo)',
-  // HAITI
+  'Alexander Isak (Sweden)',
+  'Alexander Sørloth (Norway)',
+  'Álvaro Morata (Spain)',
+  'Amine Gouiri (Algeria)',
+  'Andrej Kramarić (Croatia)',
+  'Anthony Gordon (England)',
+  'Antoine Semenyo (Ghana)',
+  'Arda Güler (Turkey)',
+  'Ayase Ueda (Japan)',
+  'Baris Alper Yilmaz (Turkey)',
+  'Bruno Petković (Croatia)',
+  'Bukayo Saka (England)',
+  'Cédric Bakambu (DR Congo)',
+  'Che Adams (Scotland)',
+  'Cho Gue-sung (South Korea)',
+  'Christian Pulisic (USA)',
+  'Cody Gakpo (Netherlands)',
+  'Cristiano Ronaldo (Portugal)',
+  'Cyle Larin (Canada)',
+  'Darwin Núñez (Uruguay)',
+  'Dejan Kulusevski (Sweden)',
+  'Diogo Jota (Portugal)',
+  'Donyell Malen (Netherlands)',
+  'Enner Valencia (Ecuador)',
+  'Erling Haaland (Norway)',
+  'Facundo Pellistri (Uruguay)',
+  'Feras Al-Brikan (Saudi Arabia)',
+  'Ferran Torres (Spain)',
+  'Florian Wirtz (Germany)',
+  'Folarin Balogun (USA)',
   'Frantzdy Pierrot (Haiti)',
-  // OTHER
-  // SAUDI ARABIA
-  'Salem Al-Dawsari (Saudi Arabia)','Feras Al-Brikan (Saudi Arabia)','Saleh Al-Shehri (Saudi Arabia)',
-  // BRAZIL extra
+  'Gabriel Martinelli (Brazil)',
+  'Gonçalo Ramos (Portugal)',
+  'Hakim Ziyech (Morocco)',
+  'Harry Kane (England)',
   'Igor Thiago (Brazil)',
-  // OTHER
-  // SAUDI ARABIA
-  'Salem Al-Dawsari (Saudi Arabia)','Feras Al-Brikan (Saudi Arabia)','Saleh Al-Shehri (Saudi Arabia)',
-  // BRAZIL extra
-  'Igor Thiago (Brazil)',
-  // OTHER
-  'Other'
+  'Ismael Díaz (Panama)',
+  'Jamal Musiala (Germany)',
+  'Jhon Duran (Colombia)',
+  'Jonathan David (Canada)',
+  'Jordan Ayew (Ghana)',
+  'Jude Bellingham (England)',
+  'Julián Álvarez (Argentina)',
+  'Julián Quiñones (Mexico)',
+  'Kai Havertz (Germany)',
+  'Kaoru Mitoma (Japan)',
+  'Kerem Aktürkoğlu (Turkey)',
+  'Kevin Rodríguez (Ecuador)',
+  'Kylian Mbappé (France)',
+  'Lamine Yamal (Spain)',
+  'Lautaro Martínez (Argentina)',
+  'Leandro Trossard (Belgium)',
+  'Leroy Sané (Germany)',
+  'Lionel Messi (Argentina)',
+  'Lois Openda (Belgium)',
+  'Lucas Paquetá (Brazil)',
+  'Luis Díaz (Colombia)',
+  'Lyndon Dykes (Scotland)',
+  'Marcel Sabitzer (Austria)',
+  'Marcus Thuram (France)',
+  'Mathew Leckie (Australia)',
+  'Mehdi Taremi (Iran)',
+  'Memphis Depay (Netherlands)',
+  'Michael Gregoritsch (Austria)',
+  'Michael Olise (France)',
+  'Mohamed Amine Amoura (Algeria)',
+  'Mostafa Mohamed (Egypt)',
+  'Nestory Irankunda (Australia)',
+  'Nico Williams (Spain)',
+  'Nicolás González (Argentina)',
+  'Nicolas Jackson (Senegal)',
+  'Nicolas Pépé (Ivory Coast)',
+  'Omar Marmoush (Egypt)',
+  'Ousmane Dembélé (France)',
+  'Pedro Neto (Portugal)',
+  'Radamel Falcao (Colombia)',
+  'Rafael Leão (Portugal)',
+  'Raphinha (Brazil)',
+  'Raúl Jiménez (Mexico)',
+  'Richarlison (Brazil)',
+  'Ritsu Doan (Japan)',
+  'Riyad Mahrez (Algeria)',
+  'Romelu Lukaku (Belgium)',
+  'Sadio Mané (Senegal)',
+  'Saleh Al-Shehri (Saudi Arabia)',
+  'Salem Al-Dawsari (Saudi Arabia)',
+  'Santiago Giménez (Mexico)',
+  'Sébastien Haller (Ivory Coast)',
+  'Serge Gnabry (Germany)',
+  'Silas (DR Congo)',
+  'Son Heung-Min (South Korea)',
+  'Soufiane Rahimi (Morocco)',
+  'Tajon Buchanan (Canada)',
+  'Tim Weah (USA)',
+  'Viktor Gyökeres (Sweden)',
+  'Vinicius Jr (Brazil)',
+  'Wout Weghorst (Netherlands)',
+  'Youssef En-Nesyri (Morocco)',
+  'Other',
 ];
+
 
 // ── Match data ───────────────────────────────────────────
 function makeGroupMatches(){
