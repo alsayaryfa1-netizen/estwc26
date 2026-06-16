@@ -391,7 +391,7 @@ const TOP_SCORERS=[
   'Vinicius Jr (Brazil)',
   'Wout Weghorst (Netherlands)',
   'Youssef En-Nesyri (Morocco)',
-  'Other',
+  'Bruno Fernandes (Portugal)',
 ];
 
 
@@ -632,12 +632,17 @@ async function bootstrap() {
     });
 
     spinnerText.textContent = 'Setting up admin...';
-    if (!USERS[ADMIN_USER]) {
+    // Only create admin if not exists — NEVER overwrite existing admin credentials
+    const existingAdmin = USERS[ADMIN_USER] || Object.values(USERS).find(function(u){ return u.role === 'admin'; });
+    if (!existingAdmin) {
       const { hash, salt } = await hashPassword(ADMIN_PASS);
-      await fsSet(`users/${ADMIN_USER}`, {
+      await fsSet('users/' + ADMIN_USER, {
         username: ADMIN_USER, passwordHash: hash, salt, role: 'admin', createdAt: Date.now()
       });
       USERS[ADMIN_USER] = { username: ADMIN_USER, passwordHash: hash, salt, role: 'admin' };
+    } else if (existingAdmin && !USERS[ADMIN_USER]) {
+      // Admin exists under a different key reference — map it
+      USERS[existingAdmin.username] = existingAdmin;
     }
 
     startListeners();
@@ -679,6 +684,11 @@ function fmtDeadline(m) {
 // { topScorer: '...', winner: '...', mvp: '...' }
 let TROPHY_RESULTS = {};
 
+// Migrate any old 'Other' picks to 'Bruno Fernandes (Portugal)'
+function migratePick(val) {
+  return val === 'Other' ? 'Bruno Fernandes (Portugal)' : val;
+}
+
 function calcPoints(username) {
   const preds = PREDICTIONS[username] || {};
   let pts = 0, details = [];
@@ -690,7 +700,8 @@ function calcPoints(username) {
     }
   });
   // Bonus points from trophy picks
-  const tp = TROPHY_PICKS[username] || {};
+  const rawTp2 = TROPHY_PICKS[username] || {};
+  const tp = { scorer: migratePick(rawTp2.scorer), winner: rawTp2.winner, mvp: migratePick(rawTp2.mvp) };
   let bonusDetails = [];
   if (TROPHY_RESULTS.topScorer && tp.scorer) {
     const ok = tp.scorer === TROPHY_RESULTS.topScorer;
@@ -728,10 +739,24 @@ window.doLogin = async function() {
   const p = document.getElementById('loginPass').value;
   const err = document.getElementById('loginError');
   err.classList.add('hidden');
-  const userData = USERS[u] || USERS[Object.keys(USERS).find(k=>k.toLowerCase()===u.toLowerCase())];
+  const userData = USERS[u] || USERS[Object.keys(USERS).find(function(k){ return k.toLowerCase()===u.toLowerCase(); })];
   if (!userData) { err.textContent = 'Invalid username or password.'; err.classList.remove('hidden'); return; }
   const ok = await verifyPassword(p, userData.salt, userData.passwordHash);
-  if (!ok) { err.textContent = 'Invalid username or password.'; err.classList.remove('hidden'); return; }
+  if (!ok) {
+    // Special recovery: if this is the admin trying to log in with correct password
+    // but hash doesn't match (happens when bootstrap re-hashed), re-hash and resave
+    if (u.toLowerCase() === ADMIN_USER.toLowerCase() && p === ADMIN_PASS) {
+      const { hash, salt } = await hashPassword(p);
+      await fsSet('users/' + ADMIN_USER, { passwordHash: hash, salt: salt });
+      userData.passwordHash = hash;
+      userData.salt = salt;
+      USERS[u] = userData;
+    } else {
+      err.textContent = 'Invalid username or password.';
+      err.classList.remove('hidden');
+      return;
+    }
+  }
   CU = userData;
   document.getElementById('loginScreen').classList.add('hidden');
   document.getElementById('app').classList.remove('hidden');
@@ -803,7 +828,8 @@ window.showTab = function(tab) {
 // ── Trophy Picks ──────────────────────────────────────────
 function renderTrophy() {
   const locked = isTrophyLocked();
-  const tp = TROPHY_PICKS[CU.username] || {};
+  const rawTp = TROPHY_PICKS[CU.username] || {};
+  const tp = { scorer: migratePick(rawTp.scorer), winner: rawTp.winner, mvp: migratePick(rawTp.mvp) };
   const allTeams = Object.values(GROUPS).flat().sort();
   const isAdmin = CU.role === 'admin';
 
@@ -855,45 +881,28 @@ function renderTrophy() {
   // Regular users just see a confirmation of their own picks
   if (locked) {
     html += '<hr class="divider">';
-    if (isAdmin) {
-      // Admin sees all players' picks
-      html += '<div class="card-title">ALL PLAYERS PICKS</div>';
-      const players = Object.values(USERS);
-      if (!players.length) {
-        html += '<div class="empty-state">No players yet.</div>';
-      } else {
-        players.forEach(function(u) {
-          const p = TROPHY_PICKS[u.username] || {};
-          const hasPicks = p.scorer || p.winner || p.mvp;
-          html += '<div class="user-row"><div>';
-          html += '<div class="user-row-name">' + u.username + (u.role === 'admin' ? ' &#9733;' : '') + '</div>';
-          if (hasPicks) {
-            html += '<div style="font-size:12px;color:var(--muted);margin-top:2px">&#9917; ' + (p.scorer || '&mdash;') + '</div>';
-            html += '<div style="font-size:12px;color:var(--muted)">&#127941; ' + (p.winner ? flag(p.winner) + ' ' + p.winner : '&mdash;') + '</div>';
-            html += '<div style="font-size:12px;color:var(--muted)">&#127775; ' + (p.mvp || '&mdash;') + '</div>';
-          } else {
-            html += '<div style="font-size:12px;color:var(--red);margin-top:2px">No picks submitted</div>';
-          }
-          html += '</div></div>';
-        });
-      }
+    // After lock: ALL users can see everyone's picks
+    html += '<div class="card-title">ALL PLAYERS PICKS</div>';
+    const players = Object.values(USERS);
+    if (!players.length) {
+      html += '<div class="empty-state">No players yet.</div>';
     } else {
-      // Regular users only see their own confirmation
-      html += '<div class="card-title">YOUR PICKS STATUS</div>';
-      const hasPicks = tp.scorer && tp.winner && tp.mvp;
-      if (hasPicks) {
-        html += '<div style="background:rgba(46,196,106,0.1);border:1.5px solid var(--green);border-radius:10px;padding:18px;text-align:center">';
-        html += '<div style="font-size:32px;margin-bottom:8px">&#10003;</div>';
-        html += '<div style="font-family:Barlow Condensed,sans-serif;font-weight:700;font-size:16px;color:var(--green);letter-spacing:1px">YOUR PICKS ARE LOCKED IN</div>';
-        html += '<div style="font-size:13px;color:var(--muted);margin-top:6px">You have successfully submitted your Tournament Winner, Top Goalscorer &amp; MVP picks.</div>';
-        html += '</div>';
-      } else {
-        html += '<div style="background:rgba(230,57,70,0.1);border:1.5px solid var(--red);border-radius:10px;padding:18px;text-align:center">';
-        html += '<div style="font-size:32px;margin-bottom:8px">&#10007;</div>';
-        html += '<div style="font-family:Barlow Condensed,sans-serif;font-weight:700;font-size:16px;color:var(--red);letter-spacing:1px">PICKS NOT SUBMITTED</div>';
-        html += '<div style="font-size:13px;color:var(--muted);margin-top:6px">You did not submit your picks before the deadline.</div>';
-        html += '</div>';
-      }
+      players.forEach(function(u) {
+        const p = TROPHY_PICKS[u.username] || {};
+        const hasPicks = p.scorer || p.winner || p.mvp;
+        html += '<div class="user-row"><div style="width:100%">';
+        html += '<div class="user-row-name">' + u.username + (u.role === 'admin' ? ' &#9733;' : '') + '</div>';
+        if (hasPicks) {
+          html += '<div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:4px;margin-top:6px">';
+          html += '<div style="background:var(--bg);border-radius:6px;padding:6px;text-align:center"><div style="font-size:9px;color:var(--muted);letter-spacing:1px;text-transform:uppercase;margin-bottom:2px">&#9917; Scorer</div><div style="font-size:11px;color:var(--text);font-weight:600">' + (p.scorer ? p.scorer.split(' (')[0] : '&mdash;') + '</div></div>';
+          html += '<div style="background:var(--bg);border-radius:6px;padding:6px;text-align:center"><div style="font-size:9px;color:var(--muted);letter-spacing:1px;text-transform:uppercase;margin-bottom:2px">&#127941; Winner</div><div style="font-size:11px;color:var(--text);font-weight:600">' + (p.winner ? flag(p.winner) + ' ' + p.winner : '&mdash;') + '</div></div>';
+          html += '<div style="background:var(--bg);border-radius:6px;padding:6px;text-align:center"><div style="font-size:9px;color:var(--muted);letter-spacing:1px;text-transform:uppercase;margin-bottom:2px">&#127775; MVP</div><div style="font-size:11px;color:var(--text);font-weight:600">' + (p.mvp ? p.mvp.split(' (')[0] : '&mdash;') + '</div></div>';
+          html += '</div>';
+        } else {
+          html += '<div style="font-size:12px;color:var(--red);margin-top:2px">No picks submitted</div>';
+        }
+        html += '</div></div>';
+      });
     }
   }
 
@@ -941,56 +950,139 @@ function renderMatchList() {
   const preds = PREDICTIONS[CU.username] || {};
   let matches;
   if (PRED_FILTER === 'All Matches') {
-    matches = [...MATCHES].sort((a,b) => new Date(a.dt) - new Date(b.dt));
+    matches = [...MATCHES].sort(function(a,b){ return new Date(a.dt)-new Date(b.dt); });
   } else {
-    matches = MATCHES.filter(m=>m.stage===PRED_FILTER);
+    matches = MATCHES.filter(function(m){ return m.stage===PRED_FILTER; });
   }
-  const c = document.getElementById('matchList'); if(!c) return;
-  if (!matches.length) { c.innerHTML=`<div class="empty-state">No matches in this stage yet.</div>`; return; }
-  const allSortedPred = [...MATCHES].sort((a,b)=>new Date(a.dt)-new Date(b.dt));
-  c.innerHTML = matches.map(m => {
+  const c = document.getElementById('matchList');
+  if (!c) return;
+  if (!matches.length) { c.innerHTML = '<div class="empty-state">No matches in this stage yet.</div>'; return; }
+
+  const allSortedPred = [...MATCHES].sort(function(a,b){ return new Date(a.dt)-new Date(b.dt); });
+
+  const cards = matches.map(function(m) {
     const locked = isLocked(m);
     const pred = preds[m.id];
     const ko = m.type === 'knockout';
     const sortedNum = allSortedPred.indexOf(m) + 1;
+
+    // Correctness badge
     let correctness = '';
     if (m.result && pred) {
-      correctness = pred===m.result ? '<span class="result-badge res-correct">✓ +3 pts</span>' : '<span class="result-badge res-wrong">✗ 0 pts</span>';
+      correctness = pred===m.result
+        ? '<span class="result-badge res-correct">&#10003; +3 pts</span>'
+        : '<span class="result-badge res-wrong">&#10007; 0 pts</span>';
     } else if (locked && !m.result && pred) {
       correctness = '<span class="result-badge res-pending">Awaiting result</span>';
     }
-    const score = m.result ? `<div style="font-family:'Bebas Neue',sans-serif;font-size:22px;color:var(--gold);text-align:center;margin:-2px 0 8px">${m.homeScore} — ${m.awayScore}</div>` : '';
-    let btns = ko
-      ? `<div class="prediction-btns">
-          <button class="pred-btn ${pred==='home'?'sel-home':''}" onclick="setPred(${m.id},'home')" ${locked?'disabled':''}>${flag(m.h)} ${m.h} WIN</button>
-          <button class="pred-btn ${pred==='away'?'sel-away':''}" onclick="setPred(${m.id},'away')" ${locked?'disabled':''}>${flag(m.a)} ${m.a} WIN</button>
-        </div>`
-      : `<div class="prediction-btns">
-          <button class="pred-btn ${pred==='home'?'sel-home':''}" onclick="setPred(${m.id},'home')" ${locked?'disabled':''}>${flag(m.h)} ${m.h}</button>
-          <button class="pred-btn ${pred==='draw'?'sel-draw':''}" onclick="setPred(${m.id},'draw')" ${locked?'disabled':''}>DRAW</button>
-          <button class="pred-btn ${pred==='away'?'sel-away':''}" onclick="setPred(${m.id},'away')" ${locked?'disabled':''}>${flag(m.a)} ${m.a}</button>
-        </div>`;
-    return `<div class="match-card">
-      <div class="match-header">
-        <div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap">
-          <span style="font-family:'Bebas Neue',sans-serif;font-size:13px;color:var(--muted);background:var(--bg);border:1px solid var(--border);border-radius:4px;padding:1px 7px;letter-spacing:1px">M${sortedNum}</span>
-          <span class="${ko?'tag-knockout':'match-group-label'}">${ko&&m.label?m.label:m.stage}</span>
-        </div>
-        <div style="text-align:right"><div class="match-date">${fmtDate(m.dt)}</div><div class="match-venue">${m.venue}</div></div>
-      </div>
-      ${score}
-      <div class="match-teams">
-        <div class="team-name">${flag(m.h)} ${m.h}</div>
-        <div class="vs-badge">VS</div>
-        <div class="team-name">${m.a} ${flag(m.a)}</div>
-      </div>
-      ${btns}
-      <div class="flex justify-between items-center mt8">
-        <div>${correctness}</div>
-        <div class="deadline-badge ${locked?'locked':''}">${locked?'🔒 Locked':'⏰ Deadline: '+fmtDeadline(m)}</div>
-      </div>
-    </div>`;
-  }).join('');
+
+    // Score display
+    const score = m.result
+      ? '<div style="font-family:Bebas Neue,sans-serif;font-size:22px;color:var(--gold);text-align:center;margin:-2px 0 8px">' + m.homeScore + ' - ' + m.awayScore + '</div>'
+      : '';
+
+    // Prediction buttons
+    const hClass = pred==='home' ? 'pred-btn sel-home' : 'pred-btn';
+    const dClass = pred==='draw' ? 'pred-btn sel-draw' : 'pred-btn';
+    const aClass = pred==='away' ? 'pred-btn sel-away' : 'pred-btn';
+    const dis = locked ? ' disabled' : '';
+    const hId = m.id; // use variable to avoid quote issues
+
+    let btns = '';
+    if (ko) {
+      btns = '<div class="prediction-btns">'
+        + '<button class="' + hClass + '" onclick="window.setPred(' + hId + ',\'home\')"' + dis + '>' + flag(m.h) + ' ' + m.h + ' WIN</button>'
+        + '<button class="' + aClass + '" onclick="window.setPred(' + hId + ',\'away\')"' + dis + '>' + flag(m.a) + ' ' + m.a + ' WIN</button>'
+        + '</div>';
+    } else {
+      btns = '<div class="prediction-btns">'
+        + '<button class="' + hClass + '" onclick="window.setPred(' + hId + ',\'home\')"' + dis + '>' + flag(m.h) + ' ' + m.h + '</button>'
+        + '<button class="' + dClass + '" onclick="window.setPred(' + hId + ',\'draw\')"' + dis + '>DRAW</button>'
+        + '<button class="' + aClass + '" onclick="window.setPred(' + hId + ',\'away\')"' + dis + '>' + flag(m.a) + ' ' + m.a + '</button>'
+        + '</div>';
+    }
+
+    // Community predictions — only visible after lock
+    let community = '';
+    if (locked) {
+      const allPlayers = Object.values(USERS);
+      const homeUsers = [], drawUsers = [], awayUsers = [];
+      allPlayers.forEach(function(u) {
+        const up = (PREDICTIONS[u.username] || {})[m.id];
+        if (up === 'home') homeUsers.push(u.username);
+        else if (up === 'draw') drawUsers.push(u.username);
+        else if (up === 'away') awayUsers.push(u.username);
+      });
+      const total = homeUsers.length + drawUsers.length + awayUsers.length;
+      if (total > 0) {
+        const hp = Math.round(homeUsers.length/total*100);
+        const dp = Math.round(drawUsers.length/total*100);
+        const ap = Math.round(awayUsers.length/total*100);
+
+        community += '<div style="margin-top:10px;background:rgba(10,14,26,0.6);border:1px solid var(--border);border-radius:8px;padding:10px">';
+        community += '<div style="font-family:Barlow Condensed,sans-serif;font-size:10px;letter-spacing:2px;color:var(--muted);text-transform:uppercase;margin-bottom:8px">&#128101; Community Picks (' + total + ')</div>';
+
+        // Home row
+        community += '<div style="margin-bottom:7px">'
+          + '<div style="display:flex;justify-content:space-between;font-family:Barlow Condensed,sans-serif;font-size:12px;font-weight:700;margin-bottom:3px">'
+          + '<span style="color:var(--green)">' + flag(m.h) + ' ' + m.h + (ko?' WIN':'') + '</span>'
+          + '<span style="color:var(--green)">' + hp + '% (' + homeUsers.length + ')</span></div>'
+          + '<div style="background:var(--border);border-radius:4px;height:5px"><div style="background:var(--green);height:5px;border-radius:4px;width:' + hp + '%"></div></div>';
+        if (homeUsers.length) community += '<div style="font-size:10px;color:var(--muted);margin-top:2px">' + homeUsers.join(', ') + '</div>';
+        community += '</div>';
+
+        // Draw row (group stage only)
+        if (!ko) {
+          community += '<div style="margin-bottom:7px">'
+            + '<div style="display:flex;justify-content:space-between;font-family:Barlow Condensed,sans-serif;font-size:12px;font-weight:700;margin-bottom:3px">'
+            + '<span style="color:var(--blue)">DRAW</span>'
+            + '<span style="color:var(--blue)">' + dp + '% (' + drawUsers.length + ')</span></div>'
+            + '<div style="background:var(--border);border-radius:4px;height:5px"><div style="background:var(--blue);height:5px;border-radius:4px;width:' + dp + '%"></div></div>';
+          if (drawUsers.length) community += '<div style="font-size:10px;color:var(--muted);margin-top:2px">' + drawUsers.join(', ') + '</div>';
+          community += '</div>';
+        }
+
+        // Away row
+        community += '<div>'
+          + '<div style="display:flex;justify-content:space-between;font-family:Barlow Condensed,sans-serif;font-size:12px;font-weight:700;margin-bottom:3px">'
+          + '<span style="color:var(--red)">' + flag(m.a) + ' ' + m.a + (ko?' WIN':'') + '</span>'
+          + '<span style="color:var(--red)">' + ap + '% (' + awayUsers.length + ')</span></div>'
+          + '<div style="background:var(--border);border-radius:4px;height:5px"><div style="background:var(--red);height:5px;border-radius:4px;width:' + ap + '%"></div></div>';
+        if (awayUsers.length) community += '<div style="font-size:10px;color:var(--muted);margin-top:2px">' + awayUsers.join(', ') + '</div>';
+        community += '</div>';
+
+        community += '</div>';
+      }
+    }
+
+    const stageLabel = (ko && m.label) ? m.label : m.stage;
+    const stageClass = ko ? 'tag-knockout' : 'match-group-label';
+    const deadlineStr = locked ? '&#128274; Locked' : '&#9200; Deadline: ' + fmtDeadline(m);
+
+    return '<div class="match-card">'
+      + '<div class="match-header">'
+        + '<div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap">'
+          + '<span style="font-family:Bebas Neue,sans-serif;font-size:13px;color:var(--muted);background:var(--bg);border:1px solid var(--border);border-radius:4px;padding:1px 7px;letter-spacing:1px">M' + sortedNum + '</span>'
+          + '<span class="' + stageClass + '">' + stageLabel + '</span>'
+        + '</div>'
+        + '<div style="text-align:right"><div class="match-date">' + fmtDate(m.dt) + '</div><div class="match-venue">' + m.venue + '</div></div>'
+      + '</div>'
+      + score
+      + '<div class="match-teams">'
+        + '<div class="team-name">' + flag(m.h) + ' ' + m.h + '</div>'
+        + '<div class="vs-badge">VS</div>'
+        + '<div class="team-name">' + m.a + ' ' + flag(m.a) + '</div>'
+      + '</div>'
+      + btns
+      + '<div class="flex justify-between items-center mt8">'
+        + '<div>' + correctness + '</div>'
+        + '<div class="deadline-badge ' + (locked?'locked':'') + '">' + deadlineStr + '</div>'
+      + '</div>'
+      + community
+    + '</div>';
+  });
+
+  c.innerHTML = cards.join('');
 }
 
 window.setPred = async function(matchId, val) {
@@ -1033,7 +1125,8 @@ function renderLeaderboard() {
 
 window.showUserDetail = function(username) {
   const pts = calcPoints(username);
-  const tp = TROPHY_PICKS[username] || {};
+  const rawTp2 = TROPHY_PICKS[username] || {};
+  const tp = { scorer: migratePick(rawTp2.scorer), winner: rawTp2.winner, mvp: migratePick(rawTp2.mvp) };
   const isAdmin = CU.role === 'admin';
   const isOwnProfile = CU.username === username;
 
