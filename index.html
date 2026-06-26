@@ -542,14 +542,14 @@ async function bootstrap() {
 bootstrap();
 
 // ── Helpers ──
-function isLocked(m){return new Date()>=new Date(new Date(m.dt).getTime()-45*60*1000);}
+function isLocked(m){return new Date()>=new Date(new Date(m.dt).getTime()-5*60*1000);}
 function isTrophyLocked(){return new Date()>=TROPHY_LOCK;}
 function fmtDate(dt){
   const d=new Date(dt);
   return d.toLocaleDateString('en-GB',{weekday:'short',day:'numeric',month:'short'})+' &middot; '+d.toLocaleTimeString('en-US',{hour:'2-digit',minute:'2-digit',timeZone:'America/New_York',hour12:true})+' ET';
 }
 function fmtDeadline(m){
-  const d=new Date(new Date(m.dt).getTime()-45*60*1000);
+  const d=new Date(new Date(m.dt).getTime()-5*60*1000);
   return d.toLocaleDateString('en-GB',{day:'numeric',month:'short'})+' '+d.toLocaleTimeString('en-US',{hour:'2-digit',minute:'2-digit',timeZone:'America/New_York',hour12:true})+' ET';
 }
 function migratePick(val){return val==='Other'?'Bruno Fernandes (Portugal)':val;}
@@ -742,7 +742,7 @@ window.saveTrophy=async function(){
 function renderPredictions(){
   const stages=[...new Set(MATCHES.map(function(m){return m.stage;}))].sort(function(a,b){return STAGES_ORDER.indexOf(a)-STAGES_ORDER.indexOf(b);});
   let html='<div class="section-title">&#9917; MATCH PREDICTIONS</div>';
-  html+='<div class="section-sub">Pick a result for each match. Locked 45 mins before kick-off.</div>';
+  html+='<div class="section-sub">Pick a result for each match. Locked 5 mins before kick-off.</div>';
   html+='<div class="group-tabs">'+stages.map(function(s){return '<button class="group-tab '+(PRED_FILTER===s?'active':'')+'" onclick="window.filterPred(\''+s+'\')">' + s + '</button>';}).join('')+'</div>';
   html+='<div id="matchList"></div>';
   document.getElementById('mainContent').innerHTML=html;
