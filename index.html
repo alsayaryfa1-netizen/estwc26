@@ -299,25 +299,40 @@ function makeGroupMatches(){
 
 
 function makeKnockoutMatches(){
-  // Confirmed dates/times (ET→UTC +4h) and venues from worldcupwiki.com
   return [
-    // ROUND OF 32 — Jun 28 to Jul 3
-    {id:73,stage:'Round of 32',label:'M73: Runner-up A vs Runner-up B',h:'TBD',a:'TBD',dt:'2026-06-28T19:00:00Z',venue:'SoFi Stadium, Inglewood',type:'knockout',result:null,homeScore:null,awayScore:null},
-    {id:74,stage:'Round of 32',label:'M74: Winner E vs Best 3rd (A/B/C/D/F)',h:'TBD',a:'TBD',dt:'2026-06-29T20:30:00Z',venue:'Gillette Stadium, Foxborough',type:'knockout',result:null,homeScore:null,awayScore:null},
-    {id:75,stage:'Round of 32',label:'M75: Winner F vs Runner-up C',h:'TBD',a:'TBD',dt:'2026-06-30T01:00:00Z',venue:'Estadio BBVA, Monterrey',type:'knockout',result:null,homeScore:null,awayScore:null},
-    {id:76,stage:'Round of 32',label:'M76: Winner C vs Runner-up F',h:'TBD',a:'TBD',dt:'2026-06-29T17:00:00Z',venue:'NRG Stadium, Houston',type:'knockout',result:null,homeScore:null,awayScore:null},
-    {id:77,stage:'Round of 32',label:'M77: Winner I vs Best 3rd (C/D/F/G/H)',h:'TBD',a:'TBD',dt:'2026-06-30T21:00:00Z',venue:'MetLife Stadium, New Jersey',type:'knockout',result:null,homeScore:null,awayScore:null},
-    {id:78,stage:'Round of 32',label:'M78: Runner-up E vs Runner-up I',h:'TBD',a:'TBD',dt:'2026-06-30T17:00:00Z',venue:'AT&T Stadium, Arlington',type:'knockout',result:null,homeScore:null,awayScore:null},
-    {id:79,stage:'Round of 32',label:'M79: Winner A vs Best 3rd (C/E/F/H/I)',h:'TBD',a:'TBD',dt:'2026-07-01T01:00:00Z',venue:'Estadio Azteca, Mexico City',type:'knockout',result:null,homeScore:null,awayScore:null},
-    {id:80,stage:'Round of 32',label:'M80: Winner L vs Best 3rd (E/H/I/J/K)',h:'TBD',a:'TBD',dt:'2026-07-01T16:00:00Z',venue:'Mercedes-Benz Stadium, Atlanta',type:'knockout',result:null,homeScore:null,awayScore:null},
-    {id:81,stage:'Round of 32',label:'M81: Winner D vs Best 3rd (B/E/F/I/J)',h:'TBD',a:'TBD',dt:'2026-07-02T00:00:00Z',venue:"Levi's Stadium, Santa Clara",type:'knockout',result:null,homeScore:null,awayScore:null},
-    {id:82,stage:'Round of 32',label:'M82: Winner G vs Best 3rd (A/E/H/I/J)',h:'TBD',a:'TBD',dt:'2026-07-01T20:00:00Z',venue:'Lumen Field, Seattle',type:'knockout',result:null,homeScore:null,awayScore:null},
-    {id:83,stage:'Round of 32',label:'M83: Runner-up K vs Runner-up L',h:'TBD',a:'TBD',dt:'2026-07-02T23:00:00Z',venue:'BMO Field, Toronto',type:'knockout',result:null,homeScore:null,awayScore:null},
-    {id:84,stage:'Round of 32',label:'M84: Winner H vs Runner-up J',h:'TBD',a:'TBD',dt:'2026-07-02T19:00:00Z',venue:'SoFi Stadium, Inglewood',type:'knockout',result:null,homeScore:null,awayScore:null},
-    {id:85,stage:'Round of 32',label:'M85: Winner B vs Best 3rd (E/F/G/I/J)',h:'TBD',a:'TBD',dt:'2026-07-03T03:00:00Z',venue:'BC Place, Vancouver',type:'knockout',result:null,homeScore:null,awayScore:null},
-    {id:86,stage:'Round of 32',label:'M86: Winner J vs Runner-up H',h:'TBD',a:'TBD',dt:'2026-07-03T22:00:00Z',venue:'Hard Rock Stadium, Miami Gardens',type:'knockout',result:null,homeScore:null,awayScore:null},
-    {id:87,stage:'Round of 32',label:'M87: Winner K vs Best 3rd (D/E/I/J/L)',h:'TBD',a:'TBD',dt:'2026-07-04T01:30:00Z',venue:'Arrowhead Stadium, Kansas City',type:'knockout',result:null,homeScore:null,awayScore:null},
-    {id:88,stage:'Round of 32',label:'M88: Runner-up D vs Runner-up G',h:'TBD',a:'TBD',dt:'2026-07-03T18:00:00Z',venue:'AT&T Stadium, Arlington',type:'knockout',result:null,homeScore:null,awayScore:null},
+    // ── ROUND OF 32 — All 16 confirmed matches ──
+    // M73: Jun 28 3pm ET → 19:00 UTC
+    {id:73,stage:'Round of 32',label:'M73',h:'South Africa',a:'Canada',dt:'2026-06-28T19:00:00Z',venue:'SoFi Stadium, Inglewood',type:'knockout',result:null,homeScore:null,awayScore:null},
+    // M74: Jun 29 1pm ET → 17:00 UTC
+    {id:74,stage:'Round of 32',label:'M74',h:'Brazil',a:'Japan',dt:'2026-06-29T17:00:00Z',venue:'NRG Stadium, Houston',type:'knockout',result:null,homeScore:null,awayScore:null},
+    // M75: Jun 29 4:30pm ET → 20:30 UTC
+    {id:75,stage:'Round of 32',label:'M75',h:'Germany',a:'Paraguay',dt:'2026-06-29T20:30:00Z',venue:'Gillette Stadium, Foxborough',type:'knockout',result:null,homeScore:null,awayScore:null},
+    // M76: Jun 29 9pm ET → 01:00 UTC Jun 30
+    {id:76,stage:'Round of 32',label:'M76',h:'Netherlands',a:'Morocco',dt:'2026-06-30T01:00:00Z',venue:'Estadio BBVA, Monterrey',type:'knockout',result:null,homeScore:null,awayScore:null},
+    // M77: Jun 30 1pm ET → 17:00 UTC
+    {id:77,stage:'Round of 32',label:'M77',h:'Ivory Coast',a:'Norway',dt:'2026-06-30T17:00:00Z',venue:'AT&T Stadium, Arlington',type:'knockout',result:null,homeScore:null,awayScore:null},
+    // M78: Jun 30 5pm ET → 21:00 UTC
+    {id:78,stage:'Round of 32',label:'M78',h:'France',a:'Sweden',dt:'2026-06-30T21:00:00Z',venue:'MetLife Stadium, New Jersey',type:'knockout',result:null,homeScore:null,awayScore:null},
+    // M79: Jun 30 9pm ET → 01:00 UTC Jul 1
+    {id:79,stage:'Round of 32',label:'M79',h:'Mexico',a:'Ecuador',dt:'2026-07-01T01:00:00Z',venue:'Estadio Azteca, Mexico City',type:'knockout',result:null,homeScore:null,awayScore:null},
+    // M80: Jul 1 12pm ET → 16:00 UTC
+    {id:80,stage:'Round of 32',label:'M80',h:'England',a:'DR Congo',dt:'2026-07-01T16:00:00Z',venue:'Mercedes-Benz Stadium, Atlanta',type:'knockout',result:null,homeScore:null,awayScore:null},
+    // M81: Jul 1 4pm ET → 20:00 UTC (Belgium vs Senegal - time TBC)
+    {id:81,stage:'Round of 32',label:'M81',h:'Belgium',a:'Senegal',dt:'2026-07-01T20:00:00Z',venue:'Lumen Field, Seattle',type:'knockout',result:null,homeScore:null,awayScore:null},
+    // M82: Jul 1 8pm ET → 00:00 UTC Jul 2
+    {id:82,stage:'Round of 32',label:'M82',h:'USA',a:'Bosnia and Herzegovina',dt:'2026-07-02T00:00:00Z',venue:"Levi's Stadium, Santa Clara",type:'knockout',result:null,homeScore:null,awayScore:null},
+    // M83: Jul 2 2pm ET → 18:00 UTC
+    {id:83,stage:'Round of 32',label:'M83',h:'Australia',a:'Egypt',dt:'2026-07-02T18:00:00Z',venue:'AT&T Stadium, Arlington',type:'knockout',result:null,homeScore:null,awayScore:null},
+    // M84: Jul 2 6pm ET → 22:00 UTC
+    {id:84,stage:'Round of 32',label:'M84',h:'Argentina',a:'Cape Verde',dt:'2026-07-02T22:00:00Z',venue:'Hard Rock Stadium, Miami Gardens',type:'knockout',result:null,homeScore:null,awayScore:null},
+    // M85: Jul 2 9:30pm ET → 01:30 UTC Jul 3
+    {id:85,stage:'Round of 32',label:'M85',h:'Colombia',a:'Ghana',dt:'2026-07-03T01:30:00Z',venue:'Arrowhead Stadium, Kansas City',type:'knockout',result:null,homeScore:null,awayScore:null},
+    // M86: Jul 3 3pm ET → 19:00 UTC
+    {id:86,stage:'Round of 32',label:'M86',h:'Spain',a:'Austria',dt:'2026-07-03T19:00:00Z',venue:'SoFi Stadium, Inglewood',type:'knockout',result:null,homeScore:null,awayScore:null},
+    // M87: Jul 3 7pm ET → 23:00 UTC
+    {id:87,stage:'Round of 32',label:'M87',h:'Portugal',a:'Croatia',dt:'2026-07-03T23:00:00Z',venue:'BMO Field, Toronto',type:'knockout',result:null,homeScore:null,awayScore:null},
+    // M88: Jul 4 time TBC
+    {id:88,stage:'Round of 32',label:'M88',h:'Switzerland',a:'Algeria',dt:'2026-07-04T17:00:00Z',venue:'BC Place, Vancouver',type:'knockout',result:null,homeScore:null,awayScore:null},
     // ROUND OF 16 — Jul 4 to Jul 7
     {id:89,stage:'Round of 16',label:'M89: Winner M74 vs Winner M77',h:'TBD',a:'TBD',dt:'2026-07-04T21:00:00Z',venue:'Lincoln Financial Field, Philadelphia',type:'knockout',result:null,homeScore:null,awayScore:null},
     {id:90,stage:'Round of 16',label:'M90: Winner M73 vs Winner M75',h:'TBD',a:'TBD',dt:'2026-07-04T17:00:00Z',venue:'NRG Stadium, Houston',type:'knockout',result:null,homeScore:null,awayScore:null},
@@ -578,12 +593,28 @@ function calcPoints(username) {
 
 // ── saveRankSnapshot ──
 async function saveRankSnapshot(){
+  // Save CURRENT rankings as the "previous" snapshot BEFORE result is applied
   const players=Object.values(USERS);
-  const ranked=players.map(function(u){return{username:u.username,total:calcPoints(u.username).total};}).sort(function(a,b){return b.total-a.total;});
+  const ranked=players.map(function(u){
+    return{username:u.username,total:calcPoints(u.username).total};
+  }).sort(function(a,b){return b.total-a.total;});
   const snapshot={};
   ranked.forEach(function(u,i){snapshot[u.username]=i+1;});
-  await fsSet('config/rankSnapshot',snapshot);
-  RANK_SNAPSHOT=snapshot;
+  // Store with merge:false to fully overwrite
+  try {
+    const {setDoc:sd,doc:d2}={setDoc,doc};
+    await sd(d2(db,'config','rankSnapshot'), snapshot);
+    RANK_SNAPSHOT=snapshot;
+  } catch(e) {
+    console.error('Snapshot save error:',e);
+  }
+}
+
+async function loadRankSnapshot(){
+  try {
+    const snap=await fsGet('config/rankSnapshot');
+    if(snap) RANK_SNAPSHOT=snap;
+  } catch(e){}
 }
 
 // ── Tab switch ──
@@ -1008,21 +1039,27 @@ window.submitResult=async function(id){
   const hs=parseInt(document.getElementById('hs-'+id).value);
   const as=parseInt(document.getElementById('as-'+id).value);
   if(isNaN(hs)||isNaN(as)){alert('Enter valid scores.');return;}
+  // Step 1: Save CURRENT rankings as snapshot (before this result is applied)
   await saveRankSnapshot();
+  // Step 2: Apply the new result
   const result=hs>as?'home':as>hs?'away':'draw';
   const update={result:result,homeScore:hs,awayScore:as};
   Object.assign(m,update);
   await fsSet('matches/'+id,update);
   renderResultList();
+  // Step 3: Refresh leaderboard to show arrows (new ranks vs snapshot)
+  setTimeout(function(){renderLeaderboard();},800);
 };
 
 window.setKOResult=async function(id,res){
   const m=MATCHES.find(function(x){return x.id===id;});if(!m)return;
+  // Save current rankings as snapshot before this result is applied
   await saveRankSnapshot();
   const update={result:res,homeScore:res==='home'?1:0,awayScore:res==='away'?1:0};
   Object.assign(m,update);
   await fsSet('matches/'+id,update);
   renderResultList();
+  setTimeout(function(){renderLeaderboard();},800);
 };
 
 window.clearResult=async function(id){
@@ -1097,6 +1134,12 @@ function renderAdmin(){
   }
   html+='</div>';
 
+  // Save snapshot button
+  html+='<div class="card" style="border-color:rgba(59,130,246,0.4)">';
+  html+='<div class="card-title">&#128247; SAVE RANK SNAPSHOT</div>';
+  html+='<div style="color:var(--muted);font-size:12px;margin-bottom:12px">Save current rankings as a snapshot. Arrows will show movement from this point after the next result is entered.</div>';
+  html+='<button class="btn btn-outline" onclick="window.triggerSnapshot()">SAVE SNAPSHOT NOW</button>';
+  html+='<div id="snapMsg" class="success-msg hidden" style="margin-top:8px"></div></div>';
   // Change admin password
   html+='<div class="card"><div class="card-title">CHANGE ADMIN PASSWORD</div>';
   html+='<div class="form-group"><label class="form-label">New Password</label>';
@@ -1111,9 +1154,10 @@ function renderAdmin(){
   html+='<div class="form-group"><label class="form-label">Select Player</label>';
   html+='<select class="form-input" id="mpUser">';
   html+='<option value="">&#8212; Select a player &#8212;</option>';
-  players.forEach(function(u){
+  // Include ALL users (admin + players) in manual points dropdown
+  Object.values(USERS).forEach(function(u){
     const cur=MANUAL_POINTS[u.username]||0;
-    html+='<option value="'+u.username+'">'+u.username+' &mdash; '+calcPoints(u.username).total+' pts'+(cur?' (includes +'+cur+' bonus)':'')+'</option>';
+    html+='<option value="'+u.username+'">'+u.username+(u.role==='admin'?' ★':'')+' &mdash; '+calcPoints(u.username).total+' pts'+(cur?' (includes +'+cur+' bonus)':'')+'</option>';
   });
   html+='</select></div>';
   html+='<div class="form-group"><label class="form-label">Points to Add (use negative to remove, e.g. -3)</label>';
@@ -1202,6 +1246,16 @@ window.saveTrophyResults=async function(){
   TROPHY_RESULTS={topScorer:scorer,winner:winner,mvp:mvp};
   msg.textContent='&#10003; Trophy results saved! Bonus points awarded.';msg.style.color='var(--green)';msg.classList.remove('hidden');
   setTimeout(function(){msg.classList.add('hidden');renderAdmin();},3000);
+};
+
+window.triggerSnapshot=async function(){
+  await saveRankSnapshot();
+  const msg=document.getElementById('snapMsg');
+  if(msg){
+    msg.textContent='\u2713 Snapshot saved! Rank arrows will show movement from current standings.';
+    msg.classList.remove('hidden');
+    setTimeout(function(){msg.classList.add('hidden');},4000);
+  }
 };
 
 window.saveManualPoints=async function(){
