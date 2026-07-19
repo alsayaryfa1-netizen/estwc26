@@ -109,6 +109,74 @@ select.form-input option{background:var(--bg3)}
 .sync-dot{width:7px;height:7px;border-radius:50%;background:var(--green);display:inline-block;margin-right:4px;animation:pulse 2s infinite}
 @keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
 ::-webkit-scrollbar{width:5px}::-webkit-scrollbar-track{background:var(--bg)}::-webkit-scrollbar-thumb{background:var(--border);border-radius:3px}
+
+/* ── WINNER EFFECTS ── */
+.lb-row.rank-1{
+  background:linear-gradient(135deg,rgba(245,200,66,0.18),rgba(20,29,46,0.95)) !important;
+  border-color:rgba(245,200,66,0.6) !important;
+  box-shadow:0 0 22px rgba(245,200,66,0.25),inset 0 0 30px rgba(245,200,66,0.07) !important;
+  animation:goldPulse 2.5s ease-in-out infinite;
+}
+@keyframes goldPulse{0%,100%{box-shadow:0 0 18px rgba(245,200,66,0.2),inset 0 0 20px rgba(245,200,66,0.05)}50%{box-shadow:0 0 35px rgba(245,200,66,0.45),inset 0 0 35px rgba(245,200,66,0.12)}}
+.lb-row.rank-2{
+  background:linear-gradient(135deg,rgba(192,192,192,0.12),rgba(20,29,46,0.95)) !important;
+  border-color:rgba(192,192,192,0.4) !important;
+  box-shadow:0 0 14px rgba(192,192,192,0.15) !important;
+}
+.lb-row.rank-3{
+  background:linear-gradient(135deg,rgba(205,127,50,0.12),rgba(20,29,46,0.95)) !important;
+  border-color:rgba(205,127,50,0.4) !important;
+  box-shadow:0 0 14px rgba(205,127,50,0.15) !important;
+}
+
+/* ── CONFETTI ── */
+#confettiCanvas{position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:999;}
+
+/* ── WELCOME MODAL ── */
+#welcomeModal{
+  display:none;position:fixed;inset:0;background:rgba(0,0,0,0.82);z-index:500;
+  align-items:center;justify-content:center;padding:20px;
+}
+#welcomeModal.show{display:flex;}
+.welcome-box{
+  background:linear-gradient(145deg,#141d2e,#1a2a3a);
+  border:1px solid rgba(245,200,66,0.4);
+  border-radius:20px;padding:32px 28px;width:100%;max-width:480px;
+  position:relative;box-shadow:0 30px 80px rgba(0,0,0,0.8),0 0 60px rgba(245,200,66,0.08);
+  animation:welcomeIn 0.4s cubic-bezier(0.175,0.885,0.32,1.275);
+}
+@keyframes welcomeIn{from{opacity:0;transform:scale(0.85) translateY(20px)}to{opacity:1;transform:scale(1) translateY(0)}}
+.welcome-close{
+  position:absolute;top:14px;right:16px;background:none;border:none;
+  color:var(--muted);font-size:22px;cursor:pointer;line-height:1;
+  width:32px;height:32px;display:flex;align-items:center;justify-content:center;
+  border-radius:50%;transition:all 0.2s;
+}
+.welcome-close:hover{background:rgba(255,255,255,0.1);color:var(--text);}
+.welcome-trophy{font-size:52px;text-align:center;margin-bottom:12px;animation:trophySpin 1s ease-out;}
+@keyframes trophySpin{from{transform:scale(0) rotate(-20deg)}to{transform:scale(1) rotate(0deg)}}
+.welcome-title{
+  font-family:'Bebas Neue',sans-serif;font-size:26px;color:var(--gold);
+  letter-spacing:3px;text-align:center;margin-bottom:16px;
+  text-shadow:0 0 20px rgba(245,200,66,0.4);
+}
+.welcome-body{
+  color:var(--text);font-size:14px;line-height:1.8;text-align:center;
+  border-top:1px solid rgba(245,200,66,0.15);padding-top:16px;
+}
+.welcome-sig{
+  margin-top:20px;font-family:'Barlow Condensed',sans-serif;
+  font-size:13px;color:var(--muted);text-align:center;letter-spacing:1px;
+}
+.welcome-dismiss{
+  margin-top:22px;display:block;width:100%;
+  background:var(--gold);color:#0a0e1a;
+  font-family:'Barlow Condensed',sans-serif;font-weight:700;
+  font-size:14px;letter-spacing:2px;text-transform:uppercase;
+  border:none;border-radius:8px;padding:12px;cursor:pointer;
+  transition:all 0.2s;
+}
+.welcome-dismiss:hover{background:var(--gold2);transform:translateY(-1px);}
 @keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
 .fade-in{animation:fadeIn .28s ease forwards}
 .hidden{display:none!important}
@@ -167,6 +235,29 @@ select.form-input option{background:var(--bg3)}
     <div id="modalContent"></div>
   </div>
 </div>
+<!-- CONFETTI CANVAS -->
+<canvas id="confettiCanvas"></canvas>
+
+<!-- WELCOME / FAREWELL MODAL -->
+<div id="welcomeModal">
+  <div class="welcome-box">
+    <button class="welcome-close" onclick="closeWelcome()" title="Close">&#10005;</button>
+    <div class="welcome-trophy">🏆</div>
+    <div class="welcome-title">EST WC26 · Final Day</div>
+    <div class="welcome-body">
+      <p><strong style="color:var(--gold)">To the Veterans —</strong></p>
+      <br>
+      <p>What a tournament it has been. From the very first kick-off to tonight's Final, you showed up, made your calls, and competed with passion every single matchday.</p>
+      <br>
+      <p>Whether you're sitting at the top of the leaderboard or holding your ground at the bottom — every prediction, every correct call, and every near-miss was part of something special we built together.</p>
+      <br>
+      <p>Tonight, the World Cup comes to its final chapter. May the best man win — both on the pitch and on our leaderboard. However, I hope that midget drowns in his own tears as he loses the final tonight, God willing.</p>
+    </div>
+    <div class="welcome-sig">— EST WC26 Prediction Game · July 2026</div>
+    <button class="welcome-dismiss" onclick="closeWelcome()">LET'S GO! ⚽</button>
+  </div>
+</div>
+
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
 import { getFirestore, doc, getDoc, setDoc, deleteDoc, collection, getDocs, onSnapshot } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
@@ -652,6 +743,8 @@ window.doLogin=async function(){
   document.getElementById('app').classList.remove('hidden');
   document.getElementById('headerUser').textContent=userData.username.toUpperCase()+(userData.role==='admin'?' ★':'');
   renderNav();showTab('predictions');
+  // Show welcome/farewell modal
+  setTimeout(showWelcome, 600);
 };
 
 window.doRegister=async function(){
@@ -674,6 +767,72 @@ window.doRegister=async function(){
   suc.textContent='\u2713 Account created! You can now sign in.';suc.classList.remove('hidden');
   setTimeout(function(){window.switchTab('signin');},2000);
 };
+
+// ── Welcome modal ──
+function showWelcome(){
+  document.getElementById('welcomeModal').classList.add('show');
+  startConfetti();
+  setTimeout(stopConfetti, 6000);
+}
+window.closeWelcome=function(){
+  document.getElementById('welcomeModal').classList.remove('show');
+};
+
+// ── Confetti ──
+let confettiAnim=null;
+function startConfetti(){
+  const canvas=document.getElementById('confettiCanvas');
+  const ctx=canvas.getContext('2d');
+  canvas.width=window.innerWidth;
+  canvas.height=window.innerHeight;
+  const colors=['#f5c842','#ffffff','#e63946','#2ec46a','#3b82f6','#f5a623','#c0c0c0'];
+  const pieces=[];
+  for(let i=0;i<160;i++){
+    pieces.push({
+      x:Math.random()*canvas.width,
+      y:Math.random()*canvas.height-canvas.height,
+      w:Math.random()*10+5,
+      h:Math.random()*6+3,
+      color:colors[Math.floor(Math.random()*colors.length)],
+      r:Math.random()*Math.PI*2,
+      rd:Math.random()*0.2-0.1,
+      vx:Math.random()*2-1,
+      vy:Math.random()*3+2,
+      alpha:1
+    });
+  }
+  function draw(){
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+    pieces.forEach(function(p){
+      ctx.save();
+      ctx.globalAlpha=p.alpha;
+      ctx.translate(p.x,p.y);
+      ctx.rotate(p.r);
+      ctx.fillStyle=p.color;
+      ctx.fillRect(-p.w/2,-p.h/2,p.w,p.h);
+      ctx.restore();
+      p.x+=p.vx;p.y+=p.vy;p.r+=p.rd;
+      if(p.y>canvas.height){p.y=-10;p.x=Math.random()*canvas.width;}
+    });
+    confettiAnim=requestAnimationFrame(draw);
+  }
+  draw();
+}
+function stopConfetti(){
+  if(confettiAnim){
+    cancelAnimationFrame(confettiAnim);
+    confettiAnim=null;
+    const canvas=document.getElementById('confettiCanvas');
+    const ctx=canvas.getContext('2d');
+    // Fade out
+    let alpha=1;
+    const fade=setInterval(function(){
+      alpha-=0.05;
+      ctx.globalAlpha=alpha;
+      if(alpha<=0){clearInterval(fade);ctx.clearRect(0,0,canvas.width,canvas.height);}
+    },50);
+  }
+}
 
 window.doLogout=function(){
   CU=null;
